@@ -1,0 +1,31 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "This project is part of the Front End Nanodegree Program, by Udacity.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caetano1/weather-app.git"
+  },
+  "keywords": [
+    "Project",
+    "weather",
+    "app"
+  ],
+  "author": "João Caetano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caetano1/weather-app/issues"
+  },
+  "homepage": "https://github.com/caetano1/weather-app#readme"
+}
