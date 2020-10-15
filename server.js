@@ -7,6 +7,12 @@ const express = require('express');
 // Start up an instance of app
 const app = express();
 
+// Require fs to read the JSON file containing the countries' list
+const fs = require('fs');
+
+let countriesData = fs.readFileSync('countries.json');
+let countries = JSON.parse(countriesData);
+
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require('body-parser');
@@ -31,7 +37,7 @@ function listening() {
 }
 
 /* Routing */
-// defines the GET route
+// defines the GET route for the project data
 app.get('/data', getData);
 
 function getData(req, res) {
@@ -51,4 +57,11 @@ function addEntry (req, res) {
         temp: req.body.temp,
     };
     res.send({ code: 200, responseMessage: 'Data registered'});
+};
+
+// defines the GET route for the countries data
+app.get('/countries', getCountries);
+
+function getCountries (req, res) {
+    res.send({ code:200, responseBody: countries });
 };
