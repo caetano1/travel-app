@@ -60,8 +60,8 @@ function addEntry (req, res) {
 };
 
 // defines the GET route for the countries data
-app.get('/countries', getCountries);
+app.get('/countries', fetchCountries);
 
-function getCountries (req, res) {
-    res.send({ code:200, responseBody: countries });
+function fetchCountries (req, res) {
+    res.send(countries);
 };
