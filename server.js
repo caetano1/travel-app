@@ -29,3 +29,26 @@ const server = app.listen(port, listening);
 function listening() {
     console.log(`Local server is running on port ${port}`);
 }
+
+/* Routing */
+// defines the GET route
+app.get('/data', getData);
+
+function getData(req, res) {
+    res.send(projectData);
+    console.log({ status: 200, responseBody: projectData, responseMessage: 'Data retrieved',})
+}
+
+// defines the POST route
+app.post('/addEntry', addEntry);
+
+function addEntry (req, res) {
+    console.log(req.body);
+    projectData = {
+        date: req.body.date,
+        zipCode: req.body.zipCode,
+        feelings: req.body.feelings,
+        temp: req.body.temp,
+    };
+    res.send({ code: 200, responseMessage: 'Data registered'});
+};
