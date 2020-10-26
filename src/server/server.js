@@ -33,7 +33,7 @@ app.use(express.static('dist'));
 
 
 // Setup Server
-const port = 3000;
+const port = 3030;
 
 const server = app.listen(port, listening);
 
