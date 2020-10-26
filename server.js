@@ -1,3 +1,8 @@
+const dotenv = require('dotenv');
+
+// This serves to not to expose the credentials in the public repo
+dotenv.config();
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 

@@ -4,9 +4,6 @@
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-// Stores the API Key in a variable 
-const apiKey = '781d27be53ccaae278c356ef46876e8a';
-
 // Adds the event listener to the button
 document.getElementById('generate').addEventListener('click', registerEntry);
 
