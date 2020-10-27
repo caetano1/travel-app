@@ -5,14 +5,13 @@ let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Adds the event listener to the button
-document.getElementById('generate').addEventListener('click', registerEntry);
+document.getElementById('generate').addEventListener('click', getTravelInfo);
 
 // Dinamically changes the  UI with the information given and fetched from the API
-function registerEntry (e) {
+function getTravelInfo (e) {
     const countryCode = document.getElementById('dropdownCountries').value;
-    const zipCode = document.getElementById('zip').value;
-    const feelings = document.getElementById('feelings').value;
-    const uri = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},${countryCode}&appid=${apiKey}`;
+    const cityName = document.getElementById('city').value;
+    const departureDate = document.getElementById('departureDate').value;
     
     getData(uri)
         .then(function(dataRetrieved) {

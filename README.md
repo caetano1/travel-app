@@ -1,4 +1,4 @@
 # Travel App Project
 
 List of external applications used:
-1. [Geonames](http://www.geonames.org/)
+1. [Geonames](http://www.geonames.org/) - Available only for the USA
