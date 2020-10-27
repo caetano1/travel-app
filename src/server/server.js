@@ -1,16 +1,13 @@
-const dotenv = require('dotenv');
-
 // This serves to not to expose the credentials in the public repo
+const dotenv = require('dotenv');
 dotenv.config();
 
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
-// Require Express to run server and routes
-const express = require('express');
+// Require the API functions, defined in the other files
+const getExternalData = require('./getExternalData');
 
-// Start up an instance of app
-const app = express();
 
 // Require fs to read the JSON file containing the countries' list
 const fs = require('fs');
@@ -19,22 +16,21 @@ let countriesData = fs.readFileSync('countries.json');
 let countries = JSON.parse(countriesData);
 
 /* Middleware*/
-//Here we are configuring express to use body-parser as middle-ware.
+//Here we are configuring express to use express, body-parser and cors as middle-ware.
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Cors for cross origin allowance
-const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
 app.use(express.static('dist'));
 
-
 // Setup Server
 const port = 3030;
-
 const server = app.listen(port, listening);
 
 function listening() {
@@ -42,13 +38,33 @@ function listening() {
 }
 
 /* Routing */
-// defines the GET route for the project data
-app.get('/data', getData);
+// defines the GET route which fetches the country information
+app.get('/getGeolocation', geodataApi);
 
-function getData(req, res) {
-    res.send(projectData);
-    console.log({ status: 200, responseBody: projectData, responseMessage: 'Data retrieved',})
+function geodataApi(req, res) {
+
+    const endpointGeo = 'http://api.geonames.org/searchJSON'
+    const queryGeo = `?q=${req.body.queryTerm}`;
+    const country = `&country=${req.body.country}`;
+    
+    // For debugging reasons
+    /* const queryGeo = '?q=london';
+    const country = `&country=GB`; */
+    const maxRowsGeo = '&maxRows=10';
+    const usernameGeo = `&username=${process.env.USERNAMEGEO}`;
+
+    const urlGeo = `${endpointGeo}${queryGeo}${country}${maxRowsGeo}${usernameGeo}`
+    console.log(urlGeo);
+
+    const resGeo = getExternalData(urlGeo, use='Geocoordinates')
+        .then( (data) => {
+            res.send(data);
+        })
+
+    console.log({ status: 200, responseBody: resGeo, responseMessage: 'Data retrieved'});
 }
+
+module.exports = { geodataApi }
 
 // defines the POST route
 app.post('/addEntry', addEntry);

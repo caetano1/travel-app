@@ -1,3 +1,4 @@
 # Travel App Project
 
-TBD
+List of external applications used:
+1. [Geonames](http://www.geonames.org/)
