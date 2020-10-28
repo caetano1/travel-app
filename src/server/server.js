@@ -60,7 +60,6 @@ function geodataApi(req, res) {
         /* .then( (data) => data.json() ) */
         .then( (data) => {
             res.send(data);
-            console.log(data);
             console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
         })
         .catch((err) => {
