@@ -6,7 +6,7 @@ dotenv.config();
 projectData = {};
 
 // Require the API functions, defined in the other files
-const getExternalData = require('./getExternalData');
+const getExternalData = require('./getExternalData.js');
 
 
 // Require fs to read the JSON file containing the countries' list
@@ -39,12 +39,12 @@ function listening() {
 
 /* Routing */
 // defines the GET route which fetches the country information
-app.get('/getGeolocation', geodataApi);
+app.post('/getGeolocation', geodataApi);
 
 function geodataApi(req, res) {
 
     const endpointGeo = 'http://api.geonames.org/searchJSON'
-    const queryGeo = `?q=${req.body.queryTerm}`;
+    const queryGeo = `?q=${req.body.cityName}`;
     const country = `&country=${req.body.country}`;
     
     // For debugging reasons
@@ -56,12 +56,16 @@ function geodataApi(req, res) {
     const urlGeo = `${endpointGeo}${queryGeo}${country}${maxRowsGeo}${usernameGeo}`
     console.log(urlGeo);
 
-    const resGeo = getExternalData(urlGeo, use='Geocoordinates')
+    getExternalData.getData(urlGeo, use='Geocoordinates')
+        /* .then( (data) => data.json() ) */
         .then( (data) => {
             res.send(data);
+            console.log(data);
+            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
         })
-
-    console.log({ status: 200, responseBody: resGeo, responseMessage: 'Data retrieved'});
+        .catch((err) => {
+            console.log('Error connecting to server: ', err);
+        });
 }
 
 module.exports = { geodataApi }
