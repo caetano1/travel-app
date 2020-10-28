@@ -1,41 +1,82 @@
 /* Global Variables */
+// Create an object that will store the session information
+let sessionData = {};
 
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Adds the event listener to the button
-document.getElementById('generate').addEventListener('click', getTravelInfo);
+document.getElementById('generate').addEventListener('click', generateBtnHandler);
 
-// Dinamically changes the  UI with the information given and fetched from the API
-function getTravelInfo (e) {
-    const countryCode = document.getElementById('dropdownCountries').value;
+// Makes the request to fetch the weather data
+function generateBtnHandler (e) {
+    const country = document.getElementById('dropdownCountries').value;
     const cityName = document.getElementById('city').value;
-    const departureDate = document.getElementById('departureDate').value;
-    
-    getData(uri)
-        .then(function(dataRetrieved) {
-            console.log(dataRetrieved);
-            postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp});
+    const strDepDate = document.getElementById('departureDate').value;
+    const strRetDate = document.getElementById('returnDate').value;
+
+    // Calculates the days until departure and stores it in the variable
+    const departureDate = new Date(strDepDate);
+    const daysUntilDeparture = (departureDate - date)/86400000;
+
+    const returnDate = new Date(strRetDate);
+    const tripDuration = returnDate - departureDate;
+
+    sessionData.country = country;
+    sessionData.cityName = cityName;
+    sessionData.departureDate = departureDate;
+    sessionData.returnDate = returnDate;
+
+    sessionData.daysUntilDeparture = daysUntilDeparture;    
+    sessionData.tripDuration = tripDuration;
+
+    /* Fetches the Geolocation coordinates */
+    // Stores the interal server URL in a variable
+    const uri = "http://localhost:3030/getGeolocation"
+
+    fetchGeolocation(uri, sessionData)
+        .then( (res) => {
+
+            // Fetches the weather info
+            console.log(res);
+            /* getWeatherInfo() */;
         })
-        .then(function(temp, newDate, feelings) {
-            updateUI();
+        .then( (res) => {
+
+            // Fetches the city's image
+            /* getImage() */;
+        })
+        .then( (res) => {
+
+            // Updates the UI
+            /* updateUI() */;
         });
+    
+    console.log(sessionData);
+    window.alert('wait');
+
+    document.getElementById('date').innerHTML = sessionData.departureDate;
+    /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
 }
 
-// Sets the GET route to fetch the weather information from Open Weather Map
-const getData = async (url='') => {
-    const res = await fetch (url);
+// Sets the GET route to fetch the weather information from the middleware
+const fetchGeolocation = async (url='', data={}) => {
+    const res = await fetch (url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
 
-    if (res.status === 200) {
+    try {
         const dataRetrieved = await res.json();
         return dataRetrieved;
-    } else {
+    } catch(e) {
         console.log(res);
-        const errorMessage =
-        `An error has occured: ${res.statusText}.
-        Please, check your country and ZIP code formats and try again.`;
-        window.alert(errorMessage);
+        window.alert(`An error has occured.`);
     }
 };
 
@@ -74,8 +115,8 @@ const updateUI = async () => {
 // Builds the dropdown menu with the information from the server
 document.addEventListener('DOMContentLoaded', callback);
 
-function callback(e) {
-    getCountries('/countries')
+function callback (e) {
+    getCountries('http://localhost:3030/countries')
         .then( function(countries) {
             buildMenu(countries);
         });
@@ -87,7 +128,6 @@ const getCountries = async (url='') => {
 
     try {
         const countries = await req.json();
-        console.log(countries);
         return countries;
     } catch (e) {
         console.log(e)
@@ -98,7 +138,7 @@ const getCountries = async (url='') => {
 function buildMenu (data={}) {
     const dropdownMenu = document.getElementById('dropdownCountries');
     const fragment = document.createDocumentFragment();
-    
+
     for (const element of data) {
         const option = document.createElement('option');
         option.className = 'country';
