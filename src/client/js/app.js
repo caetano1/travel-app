@@ -2,7 +2,6 @@
 // Create an object that will store the session information
 let sessionData = {};
 
-
 // Adds the event listener to the button
 document.getElementById('generate').addEventListener('click', generateBtnHandler);
 
@@ -18,7 +17,6 @@ function generateBtnHandler (e) {
     // Calculates the days until departure and stores it in the variable
     const departureDate = new Date(strDepDate);
     const daysUntilDeparture = (departureDate - d)/86400000;
-
     const returnDate = new Date(strRetDate);
     const tripDuration = (returnDate - departureDate)/86400000;
 
@@ -26,12 +24,10 @@ function generateBtnHandler (e) {
     sessionData.cityName = cityName;
     sessionData.departureDate = departureDate;
     sessionData.returnDate = returnDate;
-
     sessionData.daysUntilDeparture = daysUntilDeparture;    
     sessionData.tripDuration = tripDuration;
 
     /* Fetches the Geolocation coordinates */
-
     fetchGeolocation("http://localhost:3030/getGeolocation", sessionData)
         .then( (res) => {
             if (res.geonames.length == 0) {
@@ -63,13 +59,12 @@ function generateBtnHandler (e) {
             }
 
             // Fetches the city's image
-        
+            fetchImage("http://localhost:3030/fetchImage", cityName)
+                .then( (res) => {
+                    console.log(res);
+                    updateUi();
+                })
         })
-        .then( (res) => {
-
-            // Updates the UI
-            /* updateUI() */;
-        });
     
     console.log(sessionData);
 
@@ -117,7 +112,8 @@ const getWeatherInfo = async (url='', data={}) => {
     }
 };
 
-const postData = async (url='', data={}) => {
+// Sets the function to fetch the current weather information from the middleware
+const fetchImage = async (url='', data={}) => {
     const res = await fetch (url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -128,10 +124,11 @@ const postData = async (url='', data={}) => {
     });
 
     try {
-        const newEntry = await res.json();
-        return newEntry;
-    } catch (e) {
-        console.log('Error :', e);
+        const dataRetrieved = await res.json();
+        return dataRetrieved;
+    } catch(err) {
+        console.log(err);
+        window.alert(`An error has occured.`);
     }
 };
 
@@ -144,8 +141,8 @@ const updateUI = async () => {
         document.getElementById('date').innerHTML = `Date: ${allData.date}`;
         document.getElementById('temp').innerHTML = `Temperature: ${allData.temp}`;
         document.getElementById('content').innerHTML = `Feelings: ${allData.feelings}`;
-    } catch(e) {
-        console.log('error', e);
+    } catch(err) {
+        console.log('error', err);
     }
 }
 
@@ -182,9 +179,7 @@ function buildMenu (data={}) {
         option.id = element['alpha-2'].toLowerCase();
         option.value = element['alpha-2'].toLowerCase();
         option.innerHTML = element.name;
-
         fragment.appendChild(option);
     }
-
     dropdownMenu.appendChild(fragment);
 }
