@@ -38,7 +38,7 @@ function listening() {
 }
 
 /* Routing */
-// defines the GET route which fetches the country information
+// defines the route which fetches the country information
 app.post('/getGeolocation', geodataApi);
 
 function geodataApi(req, res) {
@@ -53,7 +53,7 @@ function geodataApi(req, res) {
     const maxRowsGeo = '&maxRows=10';
     const usernameGeo = `&username=${process.env.USERNAMEGEO}`;
 
-    const urlGeo = `${endpointGeo}${queryGeo}${country}${maxRowsGeo}${usernameGeo}`
+    const urlGeo = endpointGeo + queryGeo + country + maxRowsGeo + usernameGeo;
     console.log(urlGeo);
 
     getExternalData.getData(urlGeo, use='Geocoordinates')
@@ -67,7 +67,44 @@ function geodataApi(req, res) {
         });
 }
 
+// Debugging reasons
 module.exports = { geodataApi }
+
+// Defines the route which fetches the weather data
+app.post('/currentWeather', getCurrentWeather);
+
+function getCurrentWeather (req, res) {
+    const endpoint = 'https://api.weatherbit.io/v2.0/current?';
+    /* const lat = `&lat=${req.body.lat}`;
+    const lng = `&lon=${req.body.lng}`; */
+
+    const lat = `&lat=51.50853`;
+    const lon = `&lon=-0.12574`;
+
+    const apiKey = `&key=${process.env.WEATHERBITKEY}`
+    
+    const urlWeather = endpoint + lat + lon + apiKey;
+    console.log(urlWeather);
+
+    getExternalData.getData(urlWeather, use='Weatherbit')
+        .then( (data) => {
+            res.send(data);
+            /* console.log(data); */
+            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
+        })
+        .catch((err) => {
+            console.log('Error connecting to server: ', err);
+        });
+
+};
+
+module.exports = { getCurrentWeather }
+
+app.post('/forecastWeather', getForecastWeather);
+
+function getForecastWeather (req, res) {
+
+};
 
 // defines the POST route
 app.post('/addEntry', addEntry);
