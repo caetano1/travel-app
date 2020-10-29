@@ -39,11 +39,18 @@ function generateBtnHandler (e) {
         .then( (res) => {
 
             // Fetches the weather info
-            console.log(res);
+            console.log(res.geonames.length);
+            if (res.geonames.length == 0) {
+                window.alert("City not found - Please, try again!");
+                return;
+            };
+            const lat = res.geonames[0].lat;
+            const lng = res.geonames[0].lng;
             /* getWeatherInfo() */;
+            console.log('passed geonames');
         })
         .then( (res) => {
-
+            console.log('passed getweather');
             // Fetches the city's image
             /* getImage() */;
         })
