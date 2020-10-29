@@ -75,11 +75,11 @@ app.post('/currentWeather', getCurrentWeather);
 
 function getCurrentWeather (req, res) {
     const endpoint = 'https://api.weatherbit.io/v2.0/current?';
-    /* const lat = `&lat=${req.body.lat}`;
-    const lng = `&lon=${req.body.lng}`; */
+    const lat = `&lat=${req.body.lat}`;
+    const lon = `&lon=${req.body.lon}`;
 
-    const lat = `&lat=51.50853`;
-    const lon = `&lon=-0.12574`;
+    /* const lat = `&lat=51.50853`;
+    const lon = `&lon=-0.12574`; */
 
     const apiKey = `&key=${process.env.WEATHERBITKEY}`
     
@@ -103,8 +103,31 @@ module.exports = { getCurrentWeather }
 app.post('/forecastWeather', getForecastWeather);
 
 function getForecastWeather (req, res) {
+    const endpoint = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+    const lat = `&lat=${req.body.lat}`;
+    const lon = `&lon=${req.body.lon}`;
+    const days = '&days=14';
 
+    /* const lat = `&lat=51.50853`;
+    const lon = `&lon=-0.12574`; */
+
+    const apiKey = `&key=${process.env.WEATHERBITKEY}`
+    
+    const urlWeather = endpoint + lat + lon + apiKey + days;
+    console.log(urlWeather);
+
+    getExternalData.getData(urlWeather, use='Weatherbit')
+        .then( (data) => {
+            res.send(data);
+            /* console.log(data); */
+            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
+        })
+        .catch((err) => {
+            console.log('Error connecting to server: ', err);
+        });
 };
+
+module.exports = { getForecastWeather }
 
 // defines the POST route
 app.post('/addEntry', addEntry);

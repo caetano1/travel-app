@@ -2,15 +2,14 @@
 // Create an object that will store the session information
 let sessionData = {};
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Adds the event listener to the button
 document.getElementById('generate').addEventListener('click', generateBtnHandler);
 
 // Makes the request to fetch the weather data
 function generateBtnHandler (e) {
+    // Create a new date instance dynamically with JS
+    const d = new Date();
     const country = document.getElementById('dropdownCountries').value;
     const cityName = document.getElementById('city').value;
     const strDepDate = document.getElementById('departureDate').value;
@@ -18,10 +17,10 @@ function generateBtnHandler (e) {
 
     // Calculates the days until departure and stores it in the variable
     const departureDate = new Date(strDepDate);
-    const daysUntilDeparture = (departureDate - date)/86400000;
+    const daysUntilDeparture = (departureDate - d)/86400000;
 
     const returnDate = new Date(strRetDate);
-    const tripDuration = returnDate - departureDate;
+    const tripDuration = (returnDate - departureDate)/86400000;
 
     sessionData.country = country;
     sessionData.cityName = cityName;
@@ -49,12 +48,21 @@ function generateBtnHandler (e) {
             sessionData.geoCoord = geoCoord;
             console.log(sessionData);
 
-            // Fetches the weather info
-            getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
-                .then( (res) => {
-                    console.log(res.data);
-                })
-            /* getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord) */
+            // Checks the departure proximity and fetches the weather info
+            console.log(daysUntilDeparture)
+            if (daysUntilDeparture < 7.0) {
+                getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
+                    .then( (res) => {
+                        console.log(res.data);
+                    })
+            } else {
+                getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord)
+                    .then( (res) => {
+                        console.log(res.data);
+                    })
+            }
+
+            // Fetches the city's image
         
         })
         .then( (res) => {
