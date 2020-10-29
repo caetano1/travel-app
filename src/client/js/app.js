@@ -32,27 +32,30 @@ function generateBtnHandler (e) {
     sessionData.tripDuration = tripDuration;
 
     /* Fetches the Geolocation coordinates */
-    // Stores the interal server URL in a variable
-    const uri = "http://localhost:3030/getGeolocation"
 
-    fetchGeolocation(uri, sessionData)
+    fetchGeolocation("http://localhost:3030/getGeolocation", sessionData)
         .then( (res) => {
-
-            // Fetches the weather info
-            console.log(res.geonames.length);
             if (res.geonames.length == 0) {
                 window.alert("City not found - Please, try again!");
                 return;
             };
-            const lat = res.geonames[0].lat;
-            const lng = res.geonames[0].lng;
-            /* getWeatherInfo() */;
             console.log('passed geonames');
-        })
-        .then( (res) => {
-            console.log('passed getweather');
-            // Fetches the city's image
-            /* getImage() */;
+
+            // Stores the lat and lng in variables
+            const lat = res.geonames[0].lat;
+            const lon = res.geonames[0].lng;
+            const geoCoord = { 'lat': lat, 'lon': lon }
+
+            sessionData.geoCoord = geoCoord;
+            console.log(sessionData);
+
+            // Fetches the weather info
+            getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
+                .then( (res) => {
+                    console.log(res.data);
+                })
+            /* getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord) */
+        
         })
         .then( (res) => {
 
@@ -61,13 +64,12 @@ function generateBtnHandler (e) {
         });
     
     console.log(sessionData);
-    window.alert('wait');
 
     document.getElementById('date').innerHTML = sessionData.departureDate;
     /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
 }
 
-// Sets the GET route to fetch the weather information from the middleware
+// Sets the function to fetch the geocoords information from the middleware
 const fetchGeolocation = async (url='', data={}) => {
     const res = await fetch (url, {
         method: 'POST',
@@ -81,8 +83,28 @@ const fetchGeolocation = async (url='', data={}) => {
     try {
         const dataRetrieved = await res.json();
         return dataRetrieved;
-    } catch(e) {
-        console.log(res);
+    } catch(err) {
+        console.log(err);
+        window.alert(`An error has occured.`);
+    }
+};
+
+// Sets the function to fetch the current weather information from the middleware
+const getWeatherInfo = async (url='', data={}) => {
+    const res = await fetch (url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    try {
+        const dataRetrieved = await res.json();
+        return dataRetrieved;
+    } catch(err) {
+        console.log(err);
         window.alert(`An error has occured.`);
     }
 };
