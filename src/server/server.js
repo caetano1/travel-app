@@ -100,10 +100,12 @@ function getCurrentWeather (req, res) {
 
 module.exports = { getCurrentWeather }
 
+
+// Defines the route to fetch the forecasted data
 app.post('/forecastWeather', getForecastWeather);
 
 function getForecastWeather (req, res) {
-    const endpoint = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+    const endpoint = 'https://api.weatherbit.io/v2.0/current?';
     const lat = `&lat=${req.body.lat}`;
     const lon = `&lon=${req.body.lon}`;
     const days = '&days=14';
@@ -129,19 +131,31 @@ function getForecastWeather (req, res) {
 
 module.exports = { getForecastWeather }
 
-// defines the POST route
-app.post('/addEntry', addEntry);
+// Defines the route which fetches the city's image
+app.post('/fetchImage', getCityImage);
 
-function addEntry (req, res) {
-    console.log(req.body);
-    projectData = {
-        date: req.body.date,
-        zipCode: req.body.zipCode,
-        feelings: req.body.feelings,
-        temp: req.body.temp,
-    };
-    res.send({ code: 200, responseMessage: 'Data registered'});
+function getCityImage (req, res) {
+    const endpoint = 'https://pixabay.com/api/?';
+    const cityName = `&q=${req.body.cityName}`
+    const imageType = '&image_type=photo'
+    const apiKey = `&key=${process.env.PIXABITKEY}`
+    
+    const urlImage = endpoint + cityName + imageType + apiKey;
+    console.log(urlImage);
+
+    getExternalData.getData(urlImage, use='Pixabay API')
+        .then( (data) => {
+            res.send(data);
+            /* console.log(data); */
+            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
+        })
+        .catch((err) => {
+            console.log('Error connecting to server: ', err);
+        });
+
 };
+
+module.exports = { getCityImage }
 
 // defines the GET route for the countries data
 app.get('/countries', fetchCountries);
