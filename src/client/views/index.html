@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Weather Journal</title>
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   </head>
   <body>
     <div>
@@ -14,35 +15,35 @@
         </div>
         <div class="holder country">
           <label for="country">Select your country destination</label>
-          <select id="dropdownCountries" class="dropdownContent">
+          <select id="dropdownCountries" class="dropdownContent box">
             <!-- To be completed with .js -->
           </select>
         </div>
         <div class ="holder city">
           <label for="city">Type here the city destination</label>
-          <input type="text" id="city" placeholder="enter city name here">
+          <input type="text" id="city" class="box" placeholder="enter city name here">
         </div>
         <fieldset class ="holder date">
           <legend>Date</legend>
           <div>
             <label for="departueDate">Depart</label>
-            <input class="date input" id="departureDate" placeholder="MM/DD/YYYY">
+            <input class="date input box" id="departureDate" placeholder="MM/DD/YYYY">
           </div>
           <div>
             <label for="returnDate">Return</label>
-            <input class="date input" id="returnDate" placeholder="MM/DD/YYYY">
+            <input class="date input box" id="returnDate" placeholder="MM/DD/YYYY">
           </div>
         </fieldset>
-        <button id="generate" type="button"> Generate </button>
-        <div class ="holder entry">
-          <div class = "title">Most Recent Entry</div>
-          <div id = "entryHolder">
-            <div id = "date"></div> 
-            <div id = "temp"></div>
-            <div id = "content"></div>
-          </div>
-        </div>
+        <button id="generate" class="box" type="button"> Generate </button>
       </form>
+      <div class ="holder entry">
+        <div class = "title">Most Recent Entry</div>
+        <div id = "entryHolder">
+          <div id = "date"></div> 
+          <div id = "temp"></div>
+          <div id = "content"></div>
+        </div>
+      </div>
     </div>
 
     <!-- <script>
