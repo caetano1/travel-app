@@ -6,7 +6,6 @@ const getData = async (url='', use='') => {
     try {
         const resBody = await res.json();
         console.log('Milestone: getData success', use);
-        /* console.log(resBody); */ // For debugging reasons
         return resBody;
     } catch (err) {
         console.log('Milestone: getExternalData error', use);
