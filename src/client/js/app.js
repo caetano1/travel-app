@@ -73,25 +73,29 @@ function generateBtnHandler (e) {
 
                      // Checks the departure proximity and fetches the weather info
                     console.log(daysUntilDeparture)
+                    
                     if (daysUntilDeparture < 7.0) {
                         getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
                             .then( (res) => {
                                 console.log('passed current weather info');
+                                sessionData.weather = res.data;
+                                console.log(sessionData);
                                 console.log(res.data);
                             })
                     } else {
                         getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord)
                             .then( (res) => {
                                 console.log('passed forecast weather info');
+                                sessionData.weather = res.data;
+                                console.log(sessionData);
                                 console.log(res.data);
                             })
                     }
                     
                     /* updateUi(sessionData); */
+                    console.log("end", sessionData);
                 })
         })
-    
-    console.log("end", sessionData);
 
     document.getElementById('date').innerHTML = sessionData.departureDate;
     /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
