@@ -8,20 +8,18 @@ projectData = {};
 // Require the API functions, defined in the other files
 const getExternalData = require('./getExternalData.js');
 
-
 // Require fs to read the JSON file containing the countries' list
 const fs = require('fs');
-
 let countriesData = fs.readFileSync('countries.json');
 let countries = JSON.parse(countriesData);
 
 /* Middleware*/
 //Here we are configuring express to use express, body-parser and cors as middle-ware.
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -100,7 +98,6 @@ function getCurrentWeather (req, res) {
 
 module.exports = { getCurrentWeather }
 
-
 // Defines the route to fetch the forecasted data
 app.post('/forecastWeather', getForecastWeather);
 
@@ -136,7 +133,7 @@ app.post('/fetchImage', getCityImage);
 
 function getCityImage (req, res) {
     const endpoint = 'https://pixabay.com/api/?';
-    const cityName = `&q=${req.body.cityName}`
+    const cityName = `&q=${req.body.city}`
     const imageType = '&image_type=photo'
     const apiKey = `&key=${process.env.PIXABAYKEY}`
     
