@@ -138,8 +138,10 @@ function getCityImage (req, res) {
     const endpoint = 'https://pixabay.com/api/?';
     const cityName = `&q=${req.body.cityName}`
     const imageType = '&image_type=photo'
-    const apiKey = `&key=${process.env.PIXABITKEY}`
+    const apiKey = `&key=${process.env.PIXABAYKEY}`
     
+    /* const cityName = `&q=new york` */
+
     const urlImage = endpoint + cityName + imageType + apiKey;
     console.log(urlImage);
 
