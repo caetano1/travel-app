@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+bodyData = {};
 
 // Require the API functions, defined in the other files
 const getExternalData = require('./getExternalData.js');
@@ -18,6 +18,7 @@ let countries = JSON.parse(countriesData);
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { response } = require('express');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,125 +37,89 @@ function listening() {
 }
 
 /* Routing */
-// defines the route which fetches the country information
-app.post('/getGeolocation', geodataApi);
+// defines the route to fetch the info needed from the external APIs
+app.post('/fetchData', fetchData)
 
-function geodataApi(req, res) {
+async function fetchData (req, res) {
+    /* console.log(req.body); */
 
+    const cityName = req.body.cityName;
+    const country = req.body.country;
+    const daysUntilDeparture = req.body.daysUntilDeparture
+
+    // fetches the geocoordinates
     const endpointGeo = 'http://api.geonames.org/searchJSON'
-    const queryGeo = `?q=${req.body.cityName}`;
-    const country = `&country=${req.body.country}`;
-    
-    // For debugging reasons
-    /* const queryGeo = '?q=london';
-    const country = `&country=GB`; */
-    const maxRowsGeo = '&maxRows=10';
-    const usernameGeo = `&username=${process.env.USERNAMEGEO}`;
+    const maxRowsGeo = 10;
+    const usernameGeo = process.env.USERNAMEGEO;
 
-    const urlGeo = endpointGeo + queryGeo + country + maxRowsGeo + usernameGeo;
-    console.log(urlGeo);
+    const urlGeo = `${endpointGeo}?q=${cityName}&country=${country}&maxRows=${maxRowsGeo}&username=${usernameGeo}`;
+    /* console.log(urlGeo); */
 
-    getExternalData.getData(urlGeo, use='Geocoordinates')
-        /* .then( (data) => data.json() ) */
-        .then( (data) => {
-            res.send(data);
-            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
-        })
-        .catch((err) => {
-            console.log('Error connecting to server: ', err);
-        });
+    let responseBody = await getExternalData.getData(urlGeo, use='Geocoordinates');
+    const geoCoords = { 'lat': responseBody.geonames[0].lat, 'lon': responseBody.geonames[0].lng }
+
+    /* console.log(geoCoords); */
+
+    // fetches the city image
+    const endpointPixabay = 'https://pixabay.com/api/?';
+    const imageType = 'photo';
+    const pixabayKey = process.env.PIXABAYKEY;
+        /* const cityName = `&q=new york` */
+    const urlImage = `${endpointPixabay}&q=${cityName}&image_type=${imageType}&key=${pixabayKey}`;
+    /* console.log(urlImage); */
+
+    let imagesResponse = await getExternalData.getData(urlImage, use='Pixabay API');
+    const images = [
+        {
+            id: 1,
+            image: imagesResponse.hits[0].webformatURL,
+            source: imagesResponse.hits[0].pageURL
+        },
+        {
+            id: 2,
+            image: imagesResponse.hits[1].webformatURL,
+            source: imagesResponse.hits[1].pageURL
+        },
+        {
+            id: 3,
+            image: imagesResponse.hits[2].webformatURL,
+            source: imagesResponse.hits[2].pageURL
+        }
+    ];
+    /* console.log(images); */
+
+    // fetches the weather data
+    let endpointWeather = '';
+    if (daysUntilDeparture < 7.0) {
+        endpointWeather = 'https://api.weatherbit.io/v2.0/current?';    
+    } else {
+        const days = '&days=14'
+        endpointWeather = `https://api.weatherbit.io/v2.0/forecast/daily?${days}`;
+    }
+        /* const lat = `&lat=51.50853`;
+        const lon = `&lon=-0.12574`;
+        const urlWeather = `${endpoint}?&lat=${lat}&lon=${lon}&key=${weatherbitKey}` */
+    const weatherbitKey = process.env.WEATHERBITKEY;
+    const urlWeather = `${endpointWeather}&lat=${geoCoords.lat}&lon=${geoCoords.lon}&key=${weatherbitKey}`;
+    /* console.log(urlWeather); */
+
+    const weatherData = await getExternalData.getData(urlWeather, use='Weatherbit')
+
+    // returns bodyData
+    bodyData.date = req.body.date;
+    bodyData.departureDate = req.body.departureDate;
+    bodyData.returnDate = req.body.returnDate;
+    bodyData.departureDate = req.body.departureDate;
+    bodyData.country = country;
+    bodyData.cityName = cityName;
+    bodyData.geoCoords = geoCoords;
+    bodyData.images = images;
+    bodyData.weather = weatherData;
+
+    console.log(bodyData);
+
+    res.send(bodyData);
 }
-
-// Debugging reasons
-module.exports = { geodataApi }
-
-// Defines the route which fetches the weather data
-app.post('/currentWeather', getCurrentWeather);
-
-function getCurrentWeather (req, res) {
-    const endpoint = 'https://api.weatherbit.io/v2.0/current?';
-    const lat = `&lat=${req.body.lat}`;
-    const lon = `&lon=${req.body.lon}`;
-
-    /* const lat = `&lat=51.50853`;
-    const lon = `&lon=-0.12574`; */
-
-    const apiKey = `&key=${process.env.WEATHERBITKEY}`
-    
-    const urlWeather = endpoint + lat + lon + apiKey;
-    console.log(urlWeather);
-
-    getExternalData.getData(urlWeather, use='Weatherbit')
-        .then( (data) => {
-            res.send(data);
-            /* console.log(data); */
-            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
-        })
-        .catch((err) => {
-            console.log('Error connecting to server: ', err);
-        });
-
-};
-
-module.exports = { getCurrentWeather }
-
-// Defines the route to fetch the forecasted data
-app.post('/forecastWeather', getForecastWeather);
-
-function getForecastWeather (req, res) {
-    const endpoint = 'https://api.weatherbit.io/v2.0/current?';
-    const lat = `&lat=${req.body.lat}`;
-    const lon = `&lon=${req.body.lon}`;
-    const days = '&days=14';
-
-    /* const lat = `&lat=51.50853`;
-    const lon = `&lon=-0.12574`; */
-
-    const apiKey = `&key=${process.env.WEATHERBITKEY}`
-    
-    const urlWeather = endpoint + lat + lon + apiKey + days;
-    console.log(urlWeather);
-
-    getExternalData.getData(urlWeather, use='Weatherbit')
-        .then( (data) => {
-            res.send(data);
-            /* console.log(data); */
-            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
-        })
-        .catch((err) => {
-            console.log('Error connecting to server: ', err);
-        });
-};
-
-module.exports = { getForecastWeather }
-
-// Defines the route which fetches the city's image
-app.post('/fetchImage', getCityImage);
-
-function getCityImage (req, res) {
-    const endpoint = 'https://pixabay.com/api/?';
-    const cityName = `&q=${req.body.city}`
-    const imageType = '&image_type=photo'
-    const apiKey = `&key=${process.env.PIXABAYKEY}`
-    
-    /* const cityName = `&q=new york` */
-
-    const urlImage = endpoint + cityName + imageType + apiKey;
-    console.log(urlImage);
-
-    getExternalData.getData(urlImage, use='Pixabay API')
-        .then( (data) => {
-            res.send(data);
-            /* console.log(data); */
-            console.log({ status: 200, responseMessage: 'Connection established', responseBody: data });
-        })
-        .catch((err) => {
-            console.log('Error connecting to server: ', err);
-        });
-
-};
-
-module.exports = { getCityImage }
 
 // defines the GET route for the countries data
 app.get('/countries', fetchCountries);

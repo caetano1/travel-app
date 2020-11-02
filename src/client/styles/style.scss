@@ -9,7 +9,7 @@ $primary-font-color: #f0d43a;
 $secondary-font-color: #3f3f3f;
 $tertiary-font-color: #9098a9;
 
-$primary-background-color: #015e77;
+$primary-background-color: #0190b8;
 $secondary-background-color: #22b2da;
 $tertiary-background-color: #fffff8;
 
@@ -22,20 +22,22 @@ body{
 
 #app{
     display: grid;
-    /* grid-auto-rows: minmax(150px, auto); */
-    padding: 2vh;
+    /* flex-direction: column; */
+    justify-content: center;
+    grid-auto-rows: minmax(100px, auto);
+    padding: 1em;
     width: 100%;
     /* height:auto; */
     background: $primary-background-color;
     color: $primary-font-color;
-    justify-content: center;
-    /* grid-gap: 1em; */
+    /* grid-gap: 0.5em; */
     font-size: $secondary-font-size;
     font-family: 'Oswald', sans-serif;
 }
 
 .holder {
     display: block;
+    /* width: 100%; */
 }
 
 .entry {
@@ -70,7 +72,7 @@ input{
 }
 
 button{
-    width: 400px;
+    width: 100%;
     height: 100px;
     background: #3b4a6b;
     color: $primary-font-color;
