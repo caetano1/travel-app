@@ -20,6 +20,7 @@ function generateBtnHandler (e) {
     const returnDate = new Date(strRetDate);
     const tripDuration = (returnDate - departureDate)/86400000;
 
+    sessionData.date = d;
     sessionData.country = country;
     sessionData.cityName = cityName;
     sessionData.departureDate = departureDate;
@@ -27,122 +28,20 @@ function generateBtnHandler (e) {
     sessionData.daysUntilDeparture = daysUntilDeparture;    
     sessionData.tripDuration = tripDuration;
 
-    /* Fetches the Geolocation coordinates */
-    fetchGeolocation("http://localhost:3030/getGeolocation", sessionData)
+    console.log(sessionData)
+
+    /* Fetches the data from the middleware */
+    fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
-            if (res.geonames.length == 0) {
-                window.alert("City not found - Please, try again!");
-                return;
-            };
-            console.log('passed geonames');
-
-            // Stores the lat and lng in variables
-            const lat = res.geonames[0].lat;
-            const lon = res.geonames[0].lng;
-            const geoCoord = { 'lat': lat, 'lon': lon }
-
-            sessionData.geoCoord = geoCoord;
-            console.log(sessionData);
-
-            // Fetches the city's image
-            fetchImage("http://localhost:3030/fetchImage", { city: cityName })
-                .then( (res) => {
-
-                    console.log('passed fetch images');
-
-                    let images = [
-                        {
-                            id: 1,
-                            image: res.hits[0].webformatURL,
-                            source: res.hits[0].pageURL
-                        },
-                        {
-                            id: 2,
-                            image: res.hits[1].webformatURL,
-                            source: res.hits[1].pageURL
-                        },
-                        {
-                            id: 3,
-                            image: res.hits[2].webformatURL,
-                            source: res.hits[2].pageURL
-                        }
-                    ]
-
-                    sessionData.images = images
-                    console.log(sessionData);
-
-                     // Checks the departure proximity and fetches the weather info
-                    console.log(daysUntilDeparture)
-                    
-                    if (daysUntilDeparture < 7.0) {
-                        getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
-                            .then( (res) => {
-                                console.log('passed current weather info');
-                                sessionData.weather = res.data;
-                                console.log(sessionData);
-                                console.log(res.data);
-                            })
-                    } else {
-                        getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord)
-                            .then( (res) => {
-                                console.log('passed forecast weather info');
-                                sessionData.weather = res.data;
-                                console.log(sessionData);
-                                console.log(res.data);
-                            })
-                    }
-                    
-                    /* updateUi(sessionData); */
-                    console.log("end", sessionData);
-                })
-        })
+            console.log(res);
+        });
 
     document.getElementById('date').innerHTML = sessionData.departureDate;
     /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
 }
 
-// Sets the function to fetch the geocoords information from the middleware
-const fetchGeolocation = async (url='', data={}) => {
-    const res = await fetch (url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    try {
-        const dataRetrieved = await res.json();
-        return dataRetrieved;
-    } catch(err) {
-        console.log(err);
-        window.alert(`An error has occured.`);
-    }
-};
-
-// Sets the function to fetch the current weather information from the middleware
-const getWeatherInfo = async (url='', data={}) => {
-    const res = await fetch (url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    try {
-        const dataRetrieved = await res.json();
-        return dataRetrieved;
-    } catch(err) {
-        console.log(err);
-        window.alert(`An error has occured.`);
-    }
-};
-
-// Sets the function to fetch the current weather information from the middleware
-const fetchImage = async (url='', data={}) => {
+// Sets the function to fetch the information from the middleware
+const fetchData = async (url='', data={}) => {
     const res = await fetch (url, {
         method: 'POST',
         credentials: 'same-origin',
