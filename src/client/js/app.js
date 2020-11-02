@@ -44,29 +44,54 @@ function generateBtnHandler (e) {
             sessionData.geoCoord = geoCoord;
             console.log(sessionData);
 
-            // Checks the departure proximity and fetches the weather info
-            console.log(daysUntilDeparture)
-            if (daysUntilDeparture < 7.0) {
-                getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
-                    .then( (res) => {
-                        console.log(res.data);
-                    })
-            } else {
-                getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord)
-                    .then( (res) => {
-                        console.log(res.data);
-                    })
-            }
-
             // Fetches the city's image
-            fetchImage("http://localhost:3030/fetchImage", cityName)
+            fetchImage("http://localhost:3030/fetchImage", { city: cityName })
                 .then( (res) => {
-                    console.log(res);
-                    updateUi();
+
+                    console.log('passed fetch images');
+
+                    let images = [
+                        {
+                            id: 1,
+                            image: res.hits[0].webformatURL,
+                            source: res.hits[0].pageURL
+                        },
+                        {
+                            id: 2,
+                            image: res.hits[1].webformatURL,
+                            source: res.hits[1].pageURL
+                        },
+                        {
+                            id: 3,
+                            image: res.hits[2].webformatURL,
+                            source: res.hits[2].pageURL
+                        }
+                    ]
+
+                    sessionData.images = images
+                    console.log(sessionData);
+
+                     // Checks the departure proximity and fetches the weather info
+                    console.log(daysUntilDeparture)
+                    if (daysUntilDeparture < 7.0) {
+                        getWeatherInfo("http://localhost:3030/currentWeather", geoCoord)
+                            .then( (res) => {
+                                console.log('passed current weather info');
+                                console.log(res.data);
+                            })
+                    } else {
+                        getWeatherInfo("http://localhost:3030/forecastWeather", geoCoord)
+                            .then( (res) => {
+                                console.log('passed forecast weather info');
+                                console.log(res.data);
+                            })
+                    }
+                    
+                    /* updateUi(sessionData); */
                 })
         })
     
-    console.log(sessionData);
+    console.log("end", sessionData);
 
     document.getElementById('date').innerHTML = sessionData.departureDate;
     /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
@@ -132,7 +157,7 @@ const fetchImage = async (url='', data={}) => {
     }
 };
 
-const updateUI = async () => {
+const updateUI = async (data = {}) => {
     const req = await fetch('/data');
 
     try{
