@@ -1,0 +1,6 @@
+@use "variables" as *;
+
+h1 {
+    font-size: $primary-heading-size;
+    margin-bottom: 0em;
+}

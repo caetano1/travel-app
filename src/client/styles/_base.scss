@@ -1,0 +1,13 @@
+@use 'variables';
+
+:root {
+    font-size: variables.$primary-font-size;
+}
+
+body{
+    background: variables.$primary-background-color;
+    margin: 0px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+

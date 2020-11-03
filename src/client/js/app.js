@@ -33,11 +33,11 @@ function generateBtnHandler (e) {
     /* Fetches the data from the middleware */
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
-            console.log(res);
+            /* console.log(res); */
+            updateUI(res);
         });
 
-    document.getElementById('date').innerHTML = sessionData.departureDate;
-    /* postData('/addEntry', {date: newDate, zipCode: zipCode, feelings: feelings, temp: dataRetrieved.main.temp}); */
+    /* document.getElementById('date').innerHTML = sessionData.departureDate; */
 }
 
 // Sets the function to fetch the information from the middleware
