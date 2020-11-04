@@ -1,9 +1,10 @@
-@use 'variables' as *;
+@import 'variables';
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label {
     display: block;
     width: 100%;
+    font-family: $secondary-font;
     font-size: $secondary-font-size;
 }
 
@@ -13,8 +14,8 @@ input {
     width: 100%;
     padding: 1px 0px;
     background: $fields-background-color;
-    color: $secondary-font-color;
-    font-size: $tertiary-font-size;
+    color: $active-font-color;
+    font-size: $primary-font-size;
     font-family: 'Oswald', sans-serif;
     border: none;
 
@@ -25,9 +26,9 @@ input {
 
 button{
     width: 100%;
-    height: $fields-height;
+    height: $btn-height;
     background: #3b4a6b;
-    color: $primary-font-color;
+    color: $static-font-color;
     font-size: $secondary-font-size;
     font-family: $secondary-font;
     border: none;
@@ -43,8 +44,8 @@ select {
     height: $fields-height;
     width: 100%;
     background: $fields-background-color;
-    color: $secondary-font-color;
-    font-size: $tertiary-font-size;
+    color: $active-font-color;
+    font-size: $primary-font-size;
     font-family: 'Oswald', sans-serif;
 
     &:focus {
@@ -59,17 +60,17 @@ select {
 
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
-    color: $tertiary-font-color; 
+    color: $placeholder-font-color; 
     font-family: 'Oswald', sans-serif;
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: $tertiary-font-color; 
+    color: $placeholder-font-color; 
     font-family: 'Oswald', sans-serif;
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: $tertiary-font-color; 
+    color: $placeholder-font-color; 
     font-family: 'Oswald', sans-serif;
 } 
 

@@ -1,6 +1,11 @@
-@use "variables" as *;
+@import 'variables';
 
 h1 {
     font-size: $primary-heading-size;
+    color: $static-font-color;
     margin-bottom: 0em;
+}
+
+p {
+    font-family: $secondary-font;
 }

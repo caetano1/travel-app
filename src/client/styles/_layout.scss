@@ -1,13 +1,13 @@
-@use 'variables';
+@import 'variables';
 
 #container {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: auto;
-    background: variables.$primary-background-color;
-    color: variables.$primary-font-color;
-    font-size: variables.$secondary-font-size;
+    background: $main-background-color;
+    color: $static-font-color;
+    font-size: $secondary-font-size;
     font-family: 'Oswald', sans-serif;
 }
 

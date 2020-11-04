@@ -1,11 +1,11 @@
-@use 'variables';
+@import 'variables';
 
 :root {
-    font-size: variables.$primary-font-size;
+    font-size: $primary-font-size;
 }
 
 body{
-    background: variables.$primary-background-color;
+    background: $main-background-color;
     margin: 0px;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
