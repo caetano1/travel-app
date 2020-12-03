@@ -1,4 +1,10 @@
 /* Global Variables */
+import { autocomplete } from './autocomplete'
+import { fetchData } from './fetchData'
+import { updateUI } from './updateUi'
+import { getCountries } from './getCountries'
+import { turnIntoArray } from './getCountries'
+
 // Create an object that will store the session information
 let sessionData = {};
 
@@ -40,63 +46,19 @@ function generateBtnHandler (e) {
     /* document.getElementById('date').innerHTML = sessionData.departureDate; */
 }
 
-// Sets the function to fetch the information from the middleware
-const fetchData = async (url='', data={}) => {
-    const res = await fetch (url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
 
-    try {
-        const dataRetrieved = await res.json();
-        return dataRetrieved;
-    } catch(err) {
-        console.log(err);
-        window.alert(`An error has occured.`);
-    }
-};
+// Fetches the countries information an stores it in an array
+document.addEventListener('DOMContentLoaded', callbackOnContentLoaded);
 
-const updateUI = async (data = {}) => {
-    const req = await fetch('/data');
-
-    try{
-        const allData = await req.json();
-        console.log(allData);
-        document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-        document.getElementById('temp').innerHTML = `Temperature: ${allData.temp}`;
-        document.getElementById('content').innerHTML = `Feelings: ${allData.feelings}`;
-    } catch(err) {
-        console.log('error', err);
-    }
-}
-
-// Builds the dropdown menu with the information from the server
-document.addEventListener('DOMContentLoaded', callback);
-
-function callback (e) {
+function callbackOnContentLoaded (e) {
     getCountries('http://localhost:3030/countries')
-        .then( function(countries) {
-            buildMenu(countries);
+        .then( function(res) {
+            const countries = turnIntoArray(res);
+            autocomplete(document.getElementById("inputCountries"), countries);
         });
 }
 
-// Fetches the list
-const getCountries = async (url='') => {
-    const req = await fetch(url);
-
-    try {
-        const countries = await req.json();
-        return countries;
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-// Builds the menu
+/* // Builds the menu
 function buildMenu (data={}) {
     const dropdownMenu = document.getElementById('dropdownCountries');
     const fragment = document.createDocumentFragment();
@@ -110,4 +72,6 @@ function buildMenu (data={}) {
         fragment.appendChild(option);
     }
     dropdownMenu.appendChild(fragment);
-}
+} */
+
+/* autocomplete(document.getElementById("inputCountries"), countries); */
