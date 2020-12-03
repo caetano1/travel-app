@@ -1,0 +1,76 @@
+@import 'variables';
+
+/*  Basic Styling To Override Default For Basic HTML Elements */
+label {
+    display: block;
+    width: 100%;
+    font-family: $secondary-font;
+    font-size: $secondary-font-size;
+}
+
+input {
+    display: block;
+    height: $fields-height;
+    width: 100%;
+    padding: 1px 0px;
+    background: $fields-background-color;
+    color: $active-font-color;
+    font-size: $primary-font-size;
+    font-family: 'Oswald', sans-serif;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+button{
+    width: 100%;
+    height: $btn-height;
+    background: #3b4a6b;
+    color: $static-font-color;
+    font-size: $secondary-font-size;
+    font-family: $secondary-font;
+    border: none;
+    box-shadow: 2px 4px 5px #444;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+
+select {
+    height: $fields-height;
+    width: 100%;
+    background: $fields-background-color;
+    color: $active-font-color;
+    font-size: $primary-font-size;
+    font-family: 'Oswald', sans-serif;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+/* Style for Placeholder Text*/
+::placeholder { /* Firefox, Chrome, Opera */ 
+    color: $placeholder-font-color; 
+    font-family: 'Oswald', sans-serif;
+} 
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
+    color: $placeholder-font-color; 
+    font-family: 'Oswald', sans-serif;
+} 
+  
+::-ms-input-placeholder { /* Microsoft Edge */ 
+    color: $placeholder-font-color; 
+    font-family: 'Oswald', sans-serif;
+} 
+

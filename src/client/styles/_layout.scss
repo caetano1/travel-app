@@ -1,0 +1,22 @@
+@import 'variables';
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    background: $main-background-color;
+    color: $static-font-color;
+    font-size: $secondary-font-size;
+    font-family: 'Oswald', sans-serif;
+}
+
+#app {
+    padding: 1em;
+}
+
+.holder {
+    display: block;
+    margin: 1em 0em;
+    /* width: 100%; */
+}
