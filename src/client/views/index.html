@@ -13,31 +13,37 @@
         <h1>Travel App</h1>
         <section><p>General description</p></section>
       </div>
-      <form id="app" autocomplete="off">
-        <div class="holder country">
-          <label for="country">Select your country destination</label>
-          <input type="text" id="inputCountries" class="inputCountries box" autocomplete="trickChrome" name="Country" placeholder="Type your country destination here">
-        </div>
-        <div class ="holder city">
-          <label for="city">Type here the city destination</label>
-          <input type="text" id="city" class="box" placeholder="Enter city name here">
-        </div>
-        <fieldset class ="holder date">
-          <legend>Date</legend>
-          <div>
-            <label for="departueDate">Depart</label>
-            <input class="date input box" id="departureDate" placeholder="MM/DD/YYYY">
+      <form id="app" class="box" autocomplete="off">
+        <div class="holder location-fields">
+          <div class="country autocomplete">
+            <!-- <label for="country">Select your country destination</label> -->
+            <input type="text" id="input-countries" class="input-countries box" autocomplete="trick-chrome" name="Country" placeholder="Type your country destination here">
           </div>
-          <div>
-            <label for="returnDate">Return</label>
-            <input class="date input box" id="returnDate" placeholder="MM/DD/YYYY">
+          <div class="spacing-vertical"></div>
+          <div class ="city">
+            <!-- <label for="city">Type here the city destination</label> -->
+            <input type="text" id="input-city" class="box" placeholder="Enter city name here">
+          </div>
+        </div>
+        <fieldset class ="holder box">
+          <legend>Dates</legend>
+          <div class="date-fields">
+            <div class="holder">
+              <label for="departure-date">Departure</label>
+              <input class="date input box" id="departure-date" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="spacing-horizontal"></div>
+            <div class="holder">
+              <label for="returnDate">Return</label>
+              <input class="date input box" id="returnDate" placeholder="MM/DD/YYYY">
+            </div>
           </div>
         </fieldset>
         <button id="generate" class="box" type="button"> Generate </button>
       </form>
       <div class ="holder entry">
         <div class = "title">Most Recent Entry</div>
-        <div id = "entryHolder">
+        <div id = "entry-holder">
           <div id = "date"></div> 
           <div id = "temp"></div>
           <div id = "content"></div>
