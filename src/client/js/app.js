@@ -54,24 +54,6 @@ function callbackOnContentLoaded (e) {
     getCountries('http://localhost:3030/countries')
         .then( function(res) {
             const countries = turnIntoArray(res);
-            autocomplete(document.getElementById("inputCountries"), countries);
+            autocomplete(document.getElementById("input-countries"), countries);
         });
 }
-
-/* // Builds the menu
-function buildMenu (data={}) {
-    const dropdownMenu = document.getElementById('dropdownCountries');
-    const fragment = document.createDocumentFragment();
-
-    for (const element of data) {
-        const option = document.createElement('option');
-        option.className = 'country';
-        option.id = element['alpha-2'].toLowerCase();
-        option.value = element['alpha-2'].toLowerCase();
-        option.innerHTML = element.name;
-        fragment.appendChild(option);
-    }
-    dropdownMenu.appendChild(fragment);
-} */
-
-/* autocomplete(document.getElementById("inputCountries"), countries); */

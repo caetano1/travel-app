@@ -6,7 +6,7 @@ function autocomplete (input, array) {
     // to classify an option as "active"
     const addActive = (options) => {
         if (!options) return false;
-
+        
         // start by removing the "active" class on all items:
         removeActive(options);
         if (currentFocus >= options.length) currentFocus = 0;
@@ -70,7 +70,8 @@ function autocomplete (input, array) {
 
                 option.addEventListener('click', (e) => {
                     // switches the input value to the clicked one
-                    input.value = input.getElementsByTagName('input')[0].value;
+                    input.value = error.getElementsByTagName('input')[1].value;
+                    window.alert("not implemented yet")
                     closeAllLists();
                 });
                 optionsHolder.appendChild(option);
@@ -80,20 +81,17 @@ function autocomplete (input, array) {
 
     // Allows to select the country using keyboard
     input.addEventListener('keydown', (e) => {
-        let option = document.getElementById(input.id + 'autocomplete-list');
+        let option = document.getElementById('input-countries-autocomplete-list');
         if (option) option = option.getElementsByTagName('div');
 
         // select the focused item according to the keypressed
-        if (e.keycode == 40) {
-            // arrow down
+        if (e.key == "ArrowDown") {
             currentFocus++;
             addActive(option);
-        } else if (e.keycode == 38) {
-            // arrow up
+        } else if (e.key == "ArrowUp") {
             currentFocus--;
             addActive(option);
-        } else if (e.keycode == 13) {
-            // enter key
+        } else if (e.key == "Enter") {
             e.preventDefault();
             if (currentFocus > -1) {
                 // simulate a click on current focus
