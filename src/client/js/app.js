@@ -4,6 +4,7 @@ import { fetchData } from './fetchData'
 import { updateUI } from './updateUi'
 import { getCountries } from './getCountries'
 import { turnIntoArray } from './getCountries'
+import { setCalendarPicker } from './pikadayCalendar'
 
 // Create an object that will store the session information
 let sessionData = {};
@@ -55,5 +56,7 @@ function callbackOnContentLoaded (e) {
         .then( function(res) {
             const countries = turnIntoArray(res);
             autocomplete(document.getElementById("input-countries"), countries);
+            setCalendarPicker(document.getElementById('datepicker-departure'));
+            setCalendarPicker(document.getElementById('datepicker-return'));
         });
 }

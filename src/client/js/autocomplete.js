@@ -70,8 +70,7 @@ function autocomplete (input, array) {
 
                 option.addEventListener('click', (e) => {
                     // switches the input value to the clicked one
-                    input.value = error.getElementsByTagName('input')[1].value;
-                    window.alert("not implemented yet")
+                    input.value = element;
                     closeAllLists();
                 });
                 optionsHolder.appendChild(option);
