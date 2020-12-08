@@ -1,14 +1,17 @@
 // Sets the variables to be used in styling
 
 // For typography
-$primary-font: 'Montserrat', arial, sans-serif;
+$primary-font: 'Montserrat', Arial, sans-serif;
 $secondary-font: 'Oswald', sans-serif;
+$btn-font: 'Montserrat', Arial, sans-serif;
 
-$primary-font-size: 16px;
-$secondary-font-size: 24px;
+$txt1-font-size: 16px;
+$txt2-font-size: 24px;
 
-$primary-heading-size: 40px;
-$secondary-heading-size: 32px;
+$btn-font-size: 24px;
+
+$h1-font-size: 40px;
+$h2-font-size: 32px;
 
 $static-font-color: #f0d43a;
 $active-font-color: #3f3f3f;
@@ -16,8 +19,17 @@ $placeholder-font-color: #9098a9;
 
 // For components
 $main-background-color: #0190b8;
-$secondary-background-color: #70d8f5;
 $fields-background-color: #fffff8;
+$btn-background-color: #3b4a6b;
+
+$active-fields-background-color: #e9e9e9; 
+$focus-fields-background-color: #919191; 
 
 $fields-height: 2em;
 $btn-height: 2.5em;
+
+$field-radius: 4px;
+
+// For layout
+$spacing-1: 0.1em;
+$spacing-2: 0.75em;

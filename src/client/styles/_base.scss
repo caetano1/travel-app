@@ -1,7 +1,11 @@
 @import 'variables';
 
 :root {
-    font-size: $primary-font-size;
+    font-size: $txt1-font-size;
+}
+
+html {
+    box-sizing: border-box;
 }
 
 body{

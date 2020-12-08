@@ -4,49 +4,43 @@
 label {
     display: block;
     width: 100%;
-    font-family: $secondary-font;
-    font-size: $secondary-font-size;
+    font-family: $primary-font;
+    font-size: $txt1-font-size;
 }
 
 input {
     display: block;
     height: $fields-height;
     width: 100%;
-    padding: 1px 0px;
+    padding: 0.4em 0.5em;
     background: $fields-background-color;
     color: $active-font-color;
-    font-size: $primary-font-size;
-    font-family: 'Oswald', sans-serif;
+    font-size: $txt1-font-size;
+    font-family: $primary-font;
     border: none;
+    border-radius: $field-radius;
 
     &:focus {
-        outline: none;
+        outline: 1px;
+        border: 1px;
+    }
+
+    &:hover {
+        /* outline: 1px; */
+        border: 1px;
+        border-color: black;
     }
 }
 
 button{
     width: 100%;
     height: $btn-height;
-    background: #3b4a6b;
+    background: $btn-background-color;
     color: $static-font-color;
-    font-size: $secondary-font-size;
-    font-family: $secondary-font;
+    font-size: $btn-font-size;
+    font-family: $primary-font;
     border: none;
     box-shadow: 2px 4px 5px #444;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-
-select {
-    height: $fields-height;
-    width: 100%;
-    background: $fields-background-color;
-    color: $active-font-color;
-    font-size: $primary-font-size;
-    font-family: 'Oswald', sans-serif;
 
     &:focus {
         outline: none;
@@ -57,20 +51,36 @@ select {
     }
 }
 
+/* select {
+    height: $fields-height;
+    width: 100%;
+    background: $fields-background-color;
+    color: $active-font-color;
+    font-size: $txt1-font-size;
+    font-family: $primary-font;
+
+    &:focus {
+        outline: none;
+    }
+} */
+
+.box {
+    box-sizing: border-box;
+}
 
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
     color: $placeholder-font-color; 
-    font-family: 'Oswald', sans-serif;
+    font-family: $secondary-font;
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
     color: $placeholder-font-color; 
-    font-family: 'Oswald', sans-serif;
+    font-family: $secondary-font;
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
     color: $placeholder-font-color; 
-    font-family: 'Oswald', sans-serif;
+    font-family: $secondary-font;
 } 
 

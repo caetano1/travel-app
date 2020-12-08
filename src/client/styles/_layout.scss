@@ -3,11 +3,9 @@
 #container {
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: auto;
     background: $main-background-color;
     color: $static-font-color;
-    font-size: $secondary-font-size;
     font-family: 'Oswald', sans-serif;
 }
 
@@ -18,5 +16,24 @@
 .holder {
     display: block;
     margin: 1em 0em;
-    /* width: 100%; */
+    width: 100%;
+}
+
+.location {
+    display: flexbox;
+    flex-direction: column;
+}
+
+.spacing-vertical, .spacing-horizontal {
+    margin: $spacing-1;
+}
+
+.date-fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.headline {
+    text-align: center;
 }

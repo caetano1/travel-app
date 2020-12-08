@@ -1,0 +1,33 @@
+/* Styles for the autocomplete component */
+@import 'variables';
+
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    div {
+        padding: $spacing-2;
+        cursor: pointer;
+        background-color: $fields-background-color; 
+        border-bottom: 1px solid #d4d4d4; 
+        border-radius: $field-radius;
+
+        &:hover {
+            background-color: $active-fields-background-color;
+        }
+    }
+}
+  
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: $focus-fields-background-color !important; 
+}
