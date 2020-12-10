@@ -1,0 +1,12 @@
+@import 'variables';
+
+.input-error-feedback {
+    border-width: $error-field-width;
+    border-color: $error-primary-color !important;
+    border-style: $error-field-border-style;
+}
+
+.feedback-message-holder {
+    color: $error-primary-color;
+    font-size: $error-primary-font-size;
+}

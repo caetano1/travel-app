@@ -5,6 +5,8 @@ import { updateUI } from './updateUi'
 import { getCountries } from './getCountries'
 import { turnIntoArray } from './getCountries'
 import { setCalendarPicker } from './pikadayCalendar'
+import { checkInputFields } from './fieldsValidation'
+import { checkEmptyField } from './fieldsValidation'
 
 // Create an object that will store the session information
 let sessionData = {};
@@ -14,24 +16,23 @@ document.getElementById('generate').addEventListener('click', generateBtnHandler
 
 // Makes the request to fetch the weather data
 function generateBtnHandler (e) {
+
+    if (checkInputFields()) {
+        window.alert("Be sure to input the correct information before clicking on the button!");
+        return
+    }
+
     // Create a new date instance dynamically with JS
-    const d = new Date();
-    const country = document.getElementById('dropdownCountries').value;
-    const cityName = document.getElementById('city').value;
-    const strDepDate = document.getElementById('departureDate').value;
-    const strRetDate = document.getElementById('returnDate').value;
+    sessionData.date = new Date();
+    sessionData.country = document.getElementById('input-countries').value;
+    sessionData.cityName = document.getElementById('input-city').value;
+    sessionData.departureDate = new Date(document.getElementById('datepicker-departure').value);
+    sessionData.returnDate = new Date(document.getElementById('datepicker-return').value);
 
     // Calculates the days until departure and stores it in the variable
-    const departureDate = new Date(strDepDate);
-    const daysUntilDeparture = (departureDate - d)/86400000;
-    const returnDate = new Date(strRetDate);
-    const tripDuration = (returnDate - departureDate)/86400000;
+    const daysUntilDeparture = (sessionData.departureDate - sessionData.date)/86400000;
+    const tripDuration = (sessionData.returnDate - sessionData.departureDate)/86400000;
 
-    sessionData.date = d;
-    sessionData.country = country;
-    sessionData.cityName = cityName;
-    sessionData.departureDate = departureDate;
-    sessionData.returnDate = returnDate;
     sessionData.daysUntilDeparture = daysUntilDeparture;    
     sessionData.tripDuration = tripDuration;
 
@@ -48,15 +49,54 @@ function generateBtnHandler (e) {
 }
 
 
-// Fetches the countries information an stores it in an array
+// Builds the calendar components in the date-like inputs, insert
+// event listeners for validation in the inputs, builds the country
+// list.
 document.addEventListener('DOMContentLoaded', callbackOnContentLoaded);
 
 function callbackOnContentLoaded (e) {
+    const departureDate = document.getElementById('datepicker-departure');
+    const returnDate = document.getElementById('datepicker-return')
+    const today = new Date();
+
+    const inputs = document.getElementsByTagName('input');
+    for (const input of inputs) {
+        input.addEventListener('input', (e) => {
+            // erases the previous message and error class, if any
+            input.nextElementSibling.innerHTML = "";
+            input.classList.remove('input-error-feedback');
+            checkEmptyField(input);
+        })
+    }
+
+    const dateFields = document.getElementsByClassName('date');
+    for (const field of dateFields) {
+        field.addEventListener('input', (e) => {
+
+        })
+    }
+
+    // Creates the calendar components
+    setCalendarPicker(departureDate, today);
+    setCalendarPicker(returnDate, today);
+
     getCountries('http://localhost:3030/countries')
         .then( function(res) {
             const countries = turnIntoArray(res);
             autocomplete(document.getElementById("input-countries"), countries);
-            setCalendarPicker(document.getElementById('datepicker-departure'));
-            setCalendarPicker(document.getElementById('datepicker-return'));
         });
 }
+
+// Adds the validation rules to the input fields
+// empty field validation
+const inputs = document.getElementsByTagName('input');
+for (const input of inputs) {
+    input.addEventListener('input', (e) => {
+        checkEmptyField(input);
+    })
+}
+
+const countryInput = document.getElementById('input-countries');
+const cityNameInput = document.getElementById('input-city');
+const departureDateInput = document.getElementById('datepicker-departure');
+const returnDateInput = document.getElementById('datepicker-return');

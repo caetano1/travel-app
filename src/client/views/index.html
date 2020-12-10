@@ -17,12 +17,14 @@
         <div class="holder location-fields">
           <div class="country autocomplete">
             <!-- <label for="country">Select your country destination</label> -->
-            <input type="text" id="input-countries" class="input-countries box" autocomplete="trick-chrome" name="Country" placeholder="Type your country destination here">
+            <input type="text" id="input-countries" class="input-countries box" autocomplete="trick-chrome" name="Country" placeholder="Type your country destination here" required minlength="1">
+            <div class="feedback-message-holder" id="feedback-message-holder-countries"></div>
           </div>
           <div class="spacing-vertical"></div>
           <div class ="city">
             <!-- <label for="city">Type here the city destination</label> -->
-            <input type="text" id="input-city" class="box" placeholder="Enter city name here">
+            <input type="text" id="input-city" class="box" placeholder="Enter city name here" required minlength="1">
+            <div class="feedback-message-holder" id="feedback-message-holder-city"></div>
           </div>
         </div>
         <fieldset class ="holder box">
@@ -30,12 +32,14 @@
           <div class="date-fields">
             <div class="holder">
               <label for="departure-date">Departure</label>
-              <input class="date input box" id="datepicker-departure" placeholder="MM/DD/YYYY">
+              <input class="date input box" id="datepicker-departure" placeholder="MM/DD/YYYY" required>
+              <div class="feedback-message-holder" id="feedback-message-holder-departure-date"></div>
             </div>
             <div class="spacing-horizontal"></div>
             <div class="holder">
               <label for="returnDate">Return</label>
-              <input class="date input box" id="datepicker-return" placeholder="MM/DD/YYYY">
+              <input class="date input box" id="datepicker-return" placeholder="MM/DD/YYYY" required>
+              <div class="feedback-message-holder" id="feedback-message-holder-return-date"></div>
             </div>
           </div>
         </fieldset>

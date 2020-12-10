@@ -22,13 +22,13 @@ input {
 
     &:focus {
         outline: 1px;
-        border: 1px;
+        border-width: 1.5px;
     }
 
     &:hover {
         /* outline: 1px; */
-        border: 1px;
-        border-color: black;
+        /* border: 1px; */
+        /* border-color: black; */
     }
 }
 
