@@ -16,6 +16,7 @@ const checkEmptyField = (field) => {
     if (field.validity.valueMissing) {
         field.classList.add('input-error-feedback')
         field.nextElementSibling.innerHTML = "This field cannot be empty."
+        return true
     }
 }
 

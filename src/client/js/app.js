@@ -22,6 +22,8 @@ function generateBtnHandler (e) {
         return
     }
 
+    console.log('milestone');
+
     // Create a new date instance dynamically with JS
     sessionData.date = new Date();
     sessionData.country = document.getElementById('input-countries').value;
@@ -41,8 +43,8 @@ function generateBtnHandler (e) {
     /* Fetches the data from the middleware */
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
-            /* console.log(res); */
-            updateUI(res);
+            console.log(res);
+            /* updateUI(res); */
         });
 
     /* document.getElementById('date').innerHTML = sessionData.departureDate; */
@@ -66,13 +68,7 @@ function callbackOnContentLoaded (e) {
             input.nextElementSibling.innerHTML = "";
             input.classList.remove('input-error-feedback');
             checkEmptyField(input);
-        })
-    }
-
-    const dateFields = document.getElementsByClassName('date');
-    for (const field of dateFields) {
-        field.addEventListener('input', (e) => {
-
+            console.log(e.target.value);
         })
     }
 
@@ -85,15 +81,6 @@ function callbackOnContentLoaded (e) {
             const countries = turnIntoArray(res);
             autocomplete(document.getElementById("input-countries"), countries);
         });
-}
-
-// Adds the validation rules to the input fields
-// empty field validation
-const inputs = document.getElementsByTagName('input');
-for (const input of inputs) {
-    input.addEventListener('input', (e) => {
-        checkEmptyField(input);
-    })
 }
 
 const countryInput = document.getElementById('input-countries');
