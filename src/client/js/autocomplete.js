@@ -57,20 +57,20 @@ function autocomplete (input, array) {
 
         /* console.log(optionsHolder, "optionsHolder"); */
         // runs through the array
-        for (const element of array) {
+        for (const [country, alpha]  of array) {
             // checks if the input value matches the initial characters as the elements
-            if (element.substr(0, value.length).toUpperCase() == value.toUpperCase()) {
+            if (country.substr(0, value.length).toUpperCase() == value.toUpperCase()) {
                 // creates a div for each option
                 let option = document.createElement('DIV');
                 // highlights the matching letters
-                option.innerHTML =  "<strong>" + element.substring(0, value.length) + "<strong>"
-                option.innerHTML += element.substr(value.length);
+                option.innerHTML =  "<strong>" + country.substring(0, value.length) + "<strong>"
+                option.innerHTML += country.substr(value.length);
                 // insert an input field that will hold the current array item's value
-                option.innerHTML += "<input type='hidden' value='" + element + "'>";
+                option.innerHTML += "<input type='hidden' value='" + country + "'>";
 
                 option.addEventListener('click', (e) => {
                     // switches the input value to the clicked one
-                    input.value = element;
+                    input.value = country;
                     closeAllLists();
                 });
                 optionsHolder.appendChild(option);
