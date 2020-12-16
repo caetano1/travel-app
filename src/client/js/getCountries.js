@@ -14,10 +14,10 @@ async function getCountries (url='') {
 function turnIntoArray (obj) {
     let array = [];
     for (const element of obj) {
-        array.push(element.name);
+        let a = [element.name, element["alpha-2"]]
+        array.push(a);
     }
     return array;
 };
 
-export { getCountries }
-export { turnIntoArray }
+export { getCountries, turnIntoArray }

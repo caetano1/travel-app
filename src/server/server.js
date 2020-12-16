@@ -43,8 +43,8 @@ app.post('/fetchData', fetchData)
 async function fetchData (req, res) {
     /* console.log(req.body); */
 
-    const cityName = req.body.cityName;
-    const country = req.body.country;
+    const cityNameUtf8 = encodeURIComponent(req.body.cityName);
+    const countryUtf8 = encodeURIComponent(req.body.country);
     const daysUntilDeparture = req.body.daysUntilDeparture
 
     // fetches the geocoordinates
@@ -52,13 +52,14 @@ async function fetchData (req, res) {
     const maxRowsGeo = 10;
     const usernameGeo = process.env.USERNAMEGEO;
 
-    const urlGeo = `${endpointGeo}?q=${cityName}&country=${country}&maxRows=${maxRowsGeo}&username=${usernameGeo}`;
-    /* console.log(urlGeo); */
+    const urlGeo = `${endpointGeo}?q=${cityNameUtf8}&country=${countryUtf8}&maxRows=${maxRowsGeo}&username=${usernameGeo}`;
+    console.log(urlGeo);
 
     let responseBody = await getExternalData.getData(urlGeo, use='Geocoordinates');
+    console.log(responseBody);
     const geoCoords = { 'lat': responseBody.geonames[0].lat, 'lon': responseBody.geonames[0].lng }
 
-    /* console.log(geoCoords); */
+    console.log(geoCoords);
 
     // fetches the city image
     const endpointPixabay = 'https://pixabay.com/api/?';
@@ -86,7 +87,7 @@ async function fetchData (req, res) {
             source: imagesResponse.hits[2].pageURL
         }
     ];
-    /* console.log(images); */
+    console.log(images);
 
     // fetches the weather data
     let endpointWeather = '';
