@@ -43,17 +43,18 @@ document.getElementById('generate').addEventListener('click', generateBtnHandler
 
 // Makes the request to fetch the weather data
 function generateBtnHandler (e) {
-    console.log(countries);
+    // inserted here to not incur in issues with async function
+    const countryMaps = new Map(countries)
+    
     if (checkInputFields()) {
         window.alert("Be sure to input the correct information before clicking on the button!");
         return
     }
 
-    console.log('milestone');
-
-    // Create a new date instance dynamically with JS
+    // Populates the sessionData object
     sessionData.date = new Date();
     sessionData.country = document.getElementById('input-countries').value;
+    sessionData.countryAlpha2 = countryMaps.get(sessionData.country);
     sessionData.cityName = document.getElementById('input-city').value;
     sessionData.departureDate = new Date(document.getElementById('datepicker-departure').value);
     sessionData.returnDate = new Date(document.getElementById('datepicker-return').value);
@@ -71,8 +72,8 @@ function generateBtnHandler (e) {
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
             console.log(res);
-            /* updateUI(res); */
-        });
+            updateUI(res);
+        }); 
 
     /* document.getElementById('date').innerHTML = sessionData.departureDate; */
 }
