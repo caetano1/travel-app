@@ -3,6 +3,7 @@
 #container {
     display: flex;
     flex-direction: column;
+    margin: 1em;
     height: auto;
     background: $main-background-color;
     color: $static-font-color;
@@ -16,7 +17,20 @@
 .holder {
     display: block;
     margin: 1em 0em;
-    width: 100%;
+    /* width: 100%; */
+
+    &.date{
+        width: 100%;
+    }
+
+    &.results{
+        width: 100%;
+        padding: 1em;
+    }
+}
+
+.holder.results {
+    padding: 1em;
 }
 
 .location {

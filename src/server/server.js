@@ -76,19 +76,19 @@ async function fetchData (req, res) {
     let responseBodyImages = await getExternalData.getData(urlImage, use='Pixabay API');
     const images = [
         {
-            id: 1,
-            image: responseBodyImages.hits[0].webformatURL,
-            source: responseBodyImages.hits[0].pageURL
+            "id": 1,
+            "image": responseBodyImages.hits[0].webformatURL,
+            "source": responseBodyImages.hits[0].pageURL
         },
         {
-            id: 2,
-            image: responseBodyImages.hits[1].webformatURL,
-            source: responseBodyImages.hits[1].pageURL
+            "id": 2,
+            "image": responseBodyImages.hits[1].webformatURL,
+            "source": responseBodyImages.hits[1].pageURL
         },
         {
-            id: 3,
-            image: responseBodyImages.hits[2].webformatURL,
-            source: responseBodyImages.hits[2].pageURL
+            "id": 3,
+            "image": responseBodyImages.hits[2].webformatURL,
+            "source": responseBodyImages.hits[2].pageURL
         }
     ];
     /* console.log(images); */

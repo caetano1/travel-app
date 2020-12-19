@@ -30,13 +30,13 @@
         <fieldset class ="holder box">
           <legend>Dates</legend>
           <div class="date-fields">
-            <div class="holder">
+            <div class="holder date">
               <label for="departure-date">Departure</label>
               <input class="date input box" id="datepicker-departure" placeholder="MM/DD/YYYY" required>
               <div class="feedback-message-holder" id="feedback-message-holder-departure-date"></div>
             </div>
             <div class="spacing-horizontal"></div>
-            <div class="holder">
+            <div class="holder date">
               <label for="returnDate">Return</label>
               <input class="date input box" id="datepicker-return" placeholder="MM/DD/YYYY" required>
               <div class="feedback-message-holder" id="feedback-message-holder-return-date"></div>
@@ -45,12 +45,10 @@
         </fieldset>
         <button id="generate" class="box" type="button"> Generate </button>
       </form>
-      <div class ="holder entry">
-        <div class = "title">Most Recent Entry</div>
-        <div id = "entry-holder">
-          <div id = "date"></div> 
-          <div id = "temp"></div>
-          <div id = "content"></div>
+      <div class="holder results">
+        <div class="title">Most Recent Entry</div>
+        <div id="entry-holder">
+          <div class="entry-date"></div>
         </div>
       </div>
     </div>
