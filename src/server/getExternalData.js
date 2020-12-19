@@ -9,7 +9,7 @@ const getData = async (url='', use='') => {
         return resBody;
     } catch (err) {
         console.log('Milestone: getExternalData error', use);
-        return {'Error: ': err};
+        return { 'Error': err , 'Context': use };
     };
 
 };
