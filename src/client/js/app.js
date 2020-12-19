@@ -72,7 +72,7 @@ function generateBtnHandler (e) {
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
             console.log(res);
-            updateUI(res);
+            /* updateUI(res); */
         }); 
 
     /* document.getElementById('date').innerHTML = sessionData.departureDate; */
