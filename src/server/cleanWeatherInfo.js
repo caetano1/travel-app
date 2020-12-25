@@ -1,7 +1,6 @@
 /*
 Function to clean the weather data up
 It will select the:
- - Timezone
  - Weather by each day:
    - Day
    - Weather description
@@ -17,15 +16,11 @@ It will select the:
 */ 
 
 const cleanWeatherInfo = (originalData={}) => {
-    let cleanedData = {}
-
-    cleanedData["timezone"] = originalData["timezone"];
-    cleanedData["weatherForcastInfo"] = [];
+    let cleanedData = []
     
     let tempObj = {};
     for (const dataPerDay of originalData["data"]) {
         tempObj = {};
-        let iconUri = 
         tempObj["date"] = dataPerDay["valid_date"];
         tempObj["description"] = dataPerDay["weather"]["description"];
         tempObj["iconCode"] = dataPerDay["weather"]["icon"];
@@ -37,7 +32,7 @@ const cleanWeatherInfo = (originalData={}) => {
         tempObj["snow"] = dataPerDay["snow"];
         tempObj["windDirection"] = dataPerDay["wind_cdir"];
         tempObj["windSpeed"] = dataPerDay["wind_spd"];
-        cleanedData.weatherForcastInfo.push(tempObj);
+        cleanedData.push(tempObj);
     }
 
     return cleanedData;
