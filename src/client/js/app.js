@@ -8,6 +8,55 @@ import { checkInputFields, checkEmptyField } from './fieldsValidation'
 
 // Create an object that will store the session information
 let sessionData = {};
+/* let jsonExample = {
+    "country": "",
+    "cityName": "",
+    "weather": [
+        {
+          "date": "2020-12-24",
+          "description": "Light rain",
+          "iconCode": "r01d",
+          "maxTemp": 26.1,
+          "minTemp": 18.1,
+          "precipitation": 6.25,
+          "probabiltyOfPrecipitation": 70,
+          "snow": 0,
+          "temp": 22,
+          "windDirection": "WSW",
+          "windSpeed": 2.3470466
+        },
+        {
+          "date": "2020-12-25",
+          "description": "Moderate rain",
+          "iconCode": "r02d",
+          "maxTemp": 26.4,
+          "minTemp": 18.9,
+          "precipitation": 10.5625,
+          "probabiltyOfPrecipitation": 80,
+          "snow": 0,
+          "temp": 22.2,
+          "windDirection": "NE",
+          "windSpeed": 2.9268045
+        }
+    ],
+    "images": [
+        {
+            "id": 1,
+            "image": "https://pixabay.com/get/55e4d0434855b10ff3d8992cc6203f771d3cd6e04e5077497d2779d09045c1_640.jpg",
+            "source": "https://pixabay.com/photos/backflip-parkour-parkouring-345027/"
+        },
+        {
+            "id": 2,
+            "image": "https://pixabay.com/get/57e1d7444c51a914f1dc846096293f761c37dded564c704f752773d6934acd5c_640.jpg",
+            "source": "https://pixabay.com/photos/third-bridge-jk-brasilia-bridge-1127635/"
+        },
+        {
+            "id": 3,
+            "image": "https://pixabay.com/get/5fe6d3424c56b10ff3d8992cc6203f771d3cd6e04e5077497d2779d09045c1_640.jpg",
+            "source": "https://pixabay.com/photos/bridge-brasilia-jk-brazil-sky-966164/"
+        }
+    ]
+}; */
 
 // Builds the calendar components in the date-like inputs, insert
 // event listeners for validation in the inputs, builds the country
@@ -30,7 +79,6 @@ for (const input of inputs) {
 setCalendarPicker(departureDate, today);
 setCalendarPicker(returnDate, today);
 
-
 let countries = []
 getCountries('http://localhost:3030/countries')
     .then( res => {
@@ -46,10 +94,13 @@ function generateBtnHandler (e) {
     // inserted here to not incur in issues with async function
     const countryMaps = new Map(countries)
     
+    /* location.hash = '#results'; */
     if (checkInputFields()) {
         window.alert("Be sure to input the correct information before clicking on the button!");
         return
     }
+
+    document.getElementById('results-title').classList.remove('hidden');
 
     // Populates the sessionData object
     sessionData.date = new Date();
@@ -68,12 +119,12 @@ function generateBtnHandler (e) {
 
     console.log(sessionData)
 
+    /* updateUI(jsonExample); */
+
     /* Fetches the data from the middleware */
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {
             console.log(res);
-            /* updateUI(res); */
+            updateUI(res);
         }); 
-
-    /* document.getElementById('date').innerHTML = sessionData.departureDate; */
 }

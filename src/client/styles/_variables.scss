@@ -14,16 +14,20 @@ $h1-font-size: 40px;
 $h2-font-size: 32px;
 
 $static-font-color: #f0d43a;
+$static-secondary-font-color: #ffffff;
 $active-font-color: #3f3f3f;
 $placeholder-font-color: #9098a9;
 
 // For components
 $main-background-color: #0190b8;
+$card-background-color: rgba(119, 201, 255, 0.60);
 $fields-background-color: #fffff8;
 $btn-background-color: #3b4a6b;
 
 $active-fields-background-color: #e9e9e9; 
-$focus-fields-background-color: #919191; 
+$focus-fields-background-color: #919191;
+
+$card-border-color: #035e77;
 
 $fields-height: 2em;
 $btn-height: 2.5em;
@@ -44,3 +48,4 @@ $error-secondary-font-size: 10px;
 // For layout
 $spacing-1: 0.1em;
 $spacing-2: 0.75em;
+$spacing-3: 0.33em
