@@ -26,11 +26,22 @@
     &.results{
         width: 100%;
         padding: 1em;
+        box-sizing: border-box;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #results-title {
+        font-size: $txt2-font-size;
     }
 }
 
-.holder.results {
-    padding: 1em;
+.results-cards-holder {
+    display: grid;
+    grid-row-gap: $spacing-3;
+    box-sizing: border-box;
 }
 
 .location {

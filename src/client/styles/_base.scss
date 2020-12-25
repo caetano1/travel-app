@@ -6,12 +6,18 @@
 
 html {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body{
     background: $main-background-color;
     margin: 0px;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
