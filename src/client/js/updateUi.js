@@ -1,33 +1,30 @@
 // Updates the UI
-/* async function updateUI (data = {}) {
-    const req = await fetch('/data');
+import { changeImage, showImage } from "./carrousel";
 
-    try{
-        const allData = await req.json();
-        console.log(allData);
-        document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-        document.getElementById('temp').innerHTML = `Temperature: ${allData.temp}`;
-        document.getElementById('content').innerHTML = `Feelings: ${allData.feelings}`;
-    } catch(err) {
-        console.log('error', err);
-    }
-}
- */
 const updateUI = (data = {}) => {
+    // reassign class names to the app component
+    const appForm = document.getElementById('app');
+    appForm.classList.remove('app');
+    appForm.classList.add('left');
+
+    // Removes the 'hidden' class from the results title
+    document.getElementById('results-title').classList.remove('hidden');
+
+    // fetches and creates the element holders
     const resultsNode = document.getElementById('results-holder');
-    const imageHolder = document.createElement('DIV');
-    imageHolder.classList.add('results-image-holder');
-    imageHolder.id = 'results-image-holder';
+    const carrouselHolder = document.createElement('DIV');
+    carrouselHolder.classList.add('results-carrousel-holder');
+    carrouselHolder.id = 'results-carrousel-holder';
     const cardsHolder = document.createElement('DIV');
     cardsHolder.classList.add('results-cards-holder');
     cardsHolder.id = 'results-cards-holder';
 
-    resultsNode.appendChild(imageHolder);
+    resultsNode.appendChild(carrouselHolder);
     resultsNode.appendChild(cardsHolder);
 
-    addImages(data.images, imageHolder);
+    addImages(data.images, carrouselHolder);
     createWeatherCards(data.weather, cardsHolder);
-
+    
 }
 
 const addImages = (arrayImages = [], parentNode) => {
@@ -36,23 +33,49 @@ const addImages = (arrayImages = [], parentNode) => {
     console.log(parentNode)
 
     let fragment = document.createDocumentFragment()
-    
-    const imagesContainer = document.createElement('DIV');
+    let imagesHolder = document.createElement('DIV')
+    imagesHolder.classList.add('images-holder')
     for (const img of arrayImages) {
         let imageHolder = document.createElement('DIV');
         imageHolder.classList.add('image');
-        imageHolder.classList.add('hidden');
 
         let image = document.createElement('img');
+        image.classList.add('carrousel-image');
         image.src = img.image;
+        image.id = `img-${img.id}`;
         image.alt = `City image ${img.id}`;
 
         imageHolder.appendChild(image);
-        imagesContainer.appendChild(imageHolder);
+        imagesHolder.appendChild(imageHolder);
     }
+    fragment.appendChild(imagesHolder)
 
-    fragment.appendChild(imagesContainer);
+    // creates the buttons to pass the images
+    const arrowPrevious = document.createElement('a');
+    arrowPrevious.classList.add('arrow');
+    arrowPrevious.classList.add('previous');
+    arrowPrevious.id = 'arrow-prev';
+    arrowPrevious.onclick = () => { changeImage(-1) };
+    arrowPrevious.innerHTML = '&#10094;';
+
+    const arrowNext = document.createElement('a');
+    arrowNext.classList.add('arrow');
+    arrowNext.classList.add('next');
+    arrowNext.id = 'arrow-next';
+    arrowNext.onclick = () => { changeImage(1) }
+    arrowNext.innerHTML = '&#10095;';
+
+    const arrowHolder = document.createElement('DIV')
+    arrowHolder.classList.add('arrow-holder');
+    
+    arrowHolder.appendChild(arrowPrevious);
+    arrowHolder.appendChild(arrowNext);
+    fragment.appendChild(arrowHolder);
+
     parentNode.appendChild(fragment);
+
+    document.getElementsByClassName('image')[0].classList.add('selected-image');
+    showImage(0, document.getElementsByClassName('image'));
 }
 
 const createWeatherCards = (arrayWeather = [], parentNode) => {
@@ -217,8 +240,7 @@ const createWeatherCards = (arrayWeather = [], parentNode) => {
     // create individual card
     parentNode.appendChild(fragment)
     
-}
-
+};
 
 
 export { updateUI }

@@ -71,3 +71,7 @@ import './media/t05d.png';
 import './media/t05n.png';
 import './media/u00d.png';
 import './media/u00n.png';
+
+import './media/341090384_IMG_3833.jpg';
+import './media/342038688_IMG_3746.jpg';
+import './media/IMG_5022.jpg';

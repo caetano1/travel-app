@@ -1,0 +1,67 @@
+@import 'variables';
+
+.results-carrousel-holder {
+    display: grid;
+    grid-template-areas: "only";
+
+    .images-holder, .arrow-holder {
+        grid-area: only;
+    }
+}
+
+.results-carrousel-holder {
+    margin-top: $spacing-2;
+    margin-bottom: $spacing-2;
+}
+
+.arrow-holder {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 45%;
+    height: fit-content;
+}
+
+.image {
+    height: auto;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.carrousel-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.image {
+    display: none;
+
+    &.selected-image {
+        display: block;
+    }
+}
+
+.previous, .next {
+    /* position: absolute; */
+    position: relative;
+    /* top: 50%; */
+    width: auto;
+    /* margin-top: -22px; */
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        cursor: pointer;
+    }
+}
+
+.next {
+    right: 0;
+}
