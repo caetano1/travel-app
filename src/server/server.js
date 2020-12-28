@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Setup empty JS object to act as endpoint for all routes
-bodyData = {};
+let bodyData = {};
 
 // Require the API functions, defined in the other files
 const getExternalData = require('./getExternalData.js');
@@ -138,3 +138,12 @@ app.get('/countries', fetchCountries);
 function fetchCountries (req, res) {
     res.send(countries);
 };
+
+// defines a GET route for testing matters
+app.get('/test', test);
+
+function test (req, res) {
+    res.send( { statusCode: 200, message: 'Success.' } );
+}
+
+module.exports = server
