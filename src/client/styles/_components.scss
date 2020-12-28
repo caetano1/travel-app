@@ -28,7 +28,6 @@ input {
     &:hover {
         cursor: text;
         border: 1px solid $active-border-color;
-        /* border-color: black; */
     }
 }
 
@@ -46,7 +45,7 @@ button {
     width: 100%;
 
     &:focus {
-        outline: none;
+        border: 2px solid;
     }
 
     &:hover {
@@ -62,17 +61,12 @@ button {
 }
 
 /* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */ 
+::placeholder {
     color: $placeholder-font-color; 
     font-family: $secondary-font;
 } 
   
-:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: $placeholder-font-color; 
-    font-family: $secondary-font;
-} 
-  
-::-ms-input-placeholder { /* Microsoft Edge */ 
+::-ms-input-placeholder {
     color: $placeholder-font-color; 
     font-family: $secondary-font;
 } 

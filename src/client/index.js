@@ -88,7 +88,6 @@ import './media/IMG_5022.jpg'; */
 let sessionData = {};
 
 // Builds the calendar components in the date-like inputs
-
 const departureDate = document.getElementById('datepicker-departure');
 const returnDate = document.getElementById('datepicker-return')
 const today = new Date();
