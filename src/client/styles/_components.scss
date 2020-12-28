@@ -9,16 +9,16 @@ label {
 }
 
 input {
-    display: block;
-    height: $fields-height;
-    width: 100%;
-    padding: 0.4em 0.5em;
-    background: $fields-background-color;
-    color: $active-font-color;
-    font-size: $txt1-font-size;
-    font-family: $primary-font;
-    border: none;
+    background-color: $fields-background-color;
     border-radius: $field-radius;
+    border: 0px solid $active-border-color;
+    color: $active-font-color;
+    display: block;
+    font-family: $primary-font;
+    font-size: $txt1-font-size;
+    height: $fields-height;
+    padding: 0.4em 0.5em;
+    width: 100%;
 
     &:focus {
         outline: 1px;
@@ -26,21 +26,24 @@ input {
     }
 
     &:hover {
-        /* outline: 1px; */
-        /* border: 1px; */
+        cursor: text;
+        border: 1px solid $active-border-color;
         /* border-color: black; */
     }
 }
 
-button{
-    width: 100%;
-    height: $btn-height;
+button {
     background: $btn-background-color;
-    color: $static-font-color;
-    font-size: $btn-font-size;
-    font-family: $primary-font;
-    border: none;
+    border-color: $btn-border-color;
+    border-radius: $field-radius;
     box-shadow: 2px 4px 5px #444;
+    color: $active-font-color;
+    font-family: $secondary-font;
+    font-size: $btn-font-size;
+    height: $btn-height;
+    margin-top: $spacing-1;
+    margin-bottom: $spacing-1;
+    width: 100%;
 
     &:focus {
         outline: none;
@@ -48,21 +51,11 @@ button{
 
     &:hover {
         cursor: pointer;
+        color: $static-secondary-font-color;
+        background-color: $static-fields-background-color;
     }
 }
 
-/* select {
-    height: $fields-height;
-    width: 100%;
-    background: $fields-background-color;
-    color: $active-font-color;
-    font-size: $txt1-font-size;
-    font-family: $primary-font;
-
-    &:focus {
-        outline: none;
-    }
-} */
 
 .box {
     box-sizing: border-box;
