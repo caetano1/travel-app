@@ -1,5 +1,13 @@
 // Entry point for Webpack
 
+// Import functions
+import { autocomplete } from './js/autocomplete'
+import { getCountries, turnIntoArray } from './js/getCountries'
+import { setCalendarPicker } from './js/pikadayCalendar'
+import { checkEmptyField } from './js/fieldsValidation'
+import { generateBtnHandler } from './js/app.js'
+import { eraseLocalStorage, checkStoredInfo } from './js/localStorage.js'
+
 // Import js files
 import './js/app.js';
 
@@ -72,6 +80,45 @@ import './media/t05n.png';
 import './media/u00d.png';
 import './media/u00n.png';
 
-import './media/341090384_IMG_3833.jpg';
+/* import './media/341090384_IMG_3833.jpg';
 import './media/342038688_IMG_3746.jpg';
-import './media/IMG_5022.jpg';
+import './media/IMG_5022.jpg'; */
+
+// Create an object that will store the session information
+let sessionData = {};
+
+// Builds the calendar components in the date-like inputs
+
+const departureDate = document.getElementById('datepicker-departure');
+const returnDate = document.getElementById('datepicker-return')
+const today = new Date();
+
+// Adds empty field validation to each input field
+const inputs = document.getElementsByTagName('input');
+for (const input of inputs) {
+    input.addEventListener('input', (e) => {
+        checkEmptyField(input);
+    })
+}
+
+// Creates the calendar components
+setCalendarPicker(departureDate, today);
+setCalendarPicker(returnDate, today);
+
+// Add the countries list to the country field
+let countries = []
+getCountries('http://localhost:3030/countries')
+    .then( res => {
+        countries = turnIntoArray(res);
+        autocomplete(document.getElementById("input-countries"), countries);
+    });
+
+// Adds the event listener to the generate button
+document.getElementById('generate').addEventListener('click', (e) => generateBtnHandler(sessionData, countries));
+
+// Adds the event listener to the erase button
+document.getElementById('erase').addEventListener('click', eraseLocalStorage)
+
+// Adds event listener to the window to see if there is any info
+// stored in the local storage
+window.addEventListener('load', checkStoredInfo)

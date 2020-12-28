@@ -14,25 +14,28 @@ $h1-font-size: 40px;
 $h2-font-size: 32px;
 
 $static-font-color: #f0d43a;
-$static-secondary-font-color: #ffffff;
-$active-font-color: #3f3f3f;
+$static-secondary-font-color: #fffff8;
+$active-font-color: #3b4a6b;
 $placeholder-font-color: #9098a9;
 
 // For components
-$main-background-color: #0190b8;
+$main-background-color: #046F94;
 $card-background-color: rgba(119, 201, 255, 0.60);
 $fields-background-color: #fffff8;
-$btn-background-color: #3b4a6b;
+$btn-background-color: #fffff8;
 
-$active-fields-background-color: #e9e9e9; 
+$active-fields-background-color: #fffff8;
+$static-fields-background-color: #3b4a6b;
 $focus-fields-background-color: #919191;
 
-$card-border-color: #035e77;
+$active-border-color: #3b4a6b;
+$card-border-color: #3b4a6b;
+$btn-border-color: #3b4a6b;
 
 $fields-height: 2em;
 $btn-height: 2.5em;
 
-$field-radius: 4px;
+$field-radius: 8px;
 
 // For error feedbacks
 $error-field-width: 2px;
