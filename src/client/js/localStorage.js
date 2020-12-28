@@ -9,7 +9,6 @@ const eraseLocalStorage = () => {
 };
 
 const checkStoredInfo = () => {
-    console.log(localStorage)
     if (localStorage.sessionData) {
         const storedData = JSON.parse(localStorage.getItem('sessionData'));
         updateUI(storedData);

@@ -2,12 +2,14 @@
 import '../messages/messages.json';
 
 const checkEmptyField = (field) => {
-    field.nextElementSibling.innerHTML = "";
-    field.classList.remove('input-error-feedback');
-    if (field.validity.valueMissing) {
-        field.classList.add('input-error-feedback')
-        field.nextElementSibling.innerHTML = "This field cannot be empty."
-    }
+    if (field.nextElementSibling) {
+        field.nextElementSibling.innerHTML = "";
+        field.classList.remove('input-error-feedback');
+        if (field.validity.valueMissing) {
+            field.classList.add('input-error-feedback')
+            field.nextElementSibling.innerHTML = "This field cannot be empty."
+        }
+    };
 }
 
 function checkInputFields () {

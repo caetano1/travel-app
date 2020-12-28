@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const getData = async (url='', use='') => {
+async function getData (url='', use='') {
     const res = await fetch(url);
 
     try {
