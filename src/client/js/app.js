@@ -3,7 +3,7 @@ import { updateUI } from './updateUi'
 import { checkInputFields } from './fieldsValidation'
 
 // Makes the request to fetch the weather data
-const generateBtnHandler = (sessionData, countriesData) => {
+const generateBtnHandler = (countriesData) => {
     // inserted here to not incur in issues with async function
     const countryMaps = new Map(countriesData)
     
@@ -11,6 +11,9 @@ const generateBtnHandler = (sessionData, countriesData) => {
         window.alert("Be sure to input the correct information before clicking on the button!");
         return
     }
+    
+    // Create an object that will store the session information
+    let sessionData = {};
 
     // Populates the sessionData object
     sessionData.date = new Date();
