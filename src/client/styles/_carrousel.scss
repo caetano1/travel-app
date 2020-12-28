@@ -4,14 +4,12 @@
     display: grid;
     grid-template-areas: "only";
 
+    margin-top: $spacing-2;
+    margin-bottom: $spacing-2;
+
     .images-holder, .arrow-holder {
         grid-area: only;
     }
-}
-
-.results-carrousel-holder {
-    margin-top: $spacing-2;
-    margin-bottom: $spacing-2;
 }
 
 .arrow-holder {
@@ -22,12 +20,6 @@
     height: fit-content;
 }
 
-.image {
-    height: auto;
-    max-height: 250px;
-    overflow: hidden;
-}
-
 .carrousel-image {
     width: 100%;
     height: auto;
@@ -36,6 +28,9 @@
 
 .image {
     display: none;
+    height: auto;
+    max-height: 250px;
+    overflow: hidden;
 
     &.selected-image {
         display: block;
@@ -43,11 +38,8 @@
 }
 
 .previous, .next {
-    /* position: absolute; */
     position: relative;
-    /* top: 50%; */
     width: auto;
-    /* margin-top: -22px; */
     padding: 16px;
     color: white;
     font-weight: bold;
@@ -60,8 +52,4 @@
         background-color: rgba(0,0,0,0.8);
         cursor: pointer;
     }
-}
-
-.next {
-    right: 0;
 }

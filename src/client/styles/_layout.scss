@@ -4,7 +4,6 @@
     display: grid;
     margin-right: auto;
     margin-left: auto;
-    /* max-width: 500px; */
     height: auto;
     background: $main-background-color;
     color: $static-font-color;
@@ -21,7 +20,6 @@
 .holder {
     display: block;
     margin: 1em 0em;
-    /* width: 100%; */
 
     &.date{
         width: 100%;

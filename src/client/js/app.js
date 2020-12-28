@@ -30,10 +30,6 @@ const generateBtnHandler = (countriesData) => {
     sessionData.daysUntilDeparture = daysUntilDeparture;    
     sessionData.tripDuration = tripDuration;
 
-    console.log(sessionData)
-
-    /* updateUI(jsonExample); */
-
     /* Fetches the data from the middleware */
     fetchData("http://localhost:3030/fetchData", sessionData)
         .then( (res) => {

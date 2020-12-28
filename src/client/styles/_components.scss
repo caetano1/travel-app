@@ -1,6 +1,14 @@
 @import 'variables';
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
+section {
+    margin-left: auto;
+    margin-right: auto;
+
+    &.description {
+        max-width: 500px;
+    }
+}
+
 label {
     display: block;
     width: 100%;
@@ -54,7 +62,6 @@ button {
         background-color: $static-fields-background-color;
     }
 }
-
 
 .box {
     box-sizing: border-box;

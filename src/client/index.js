@@ -84,11 +84,6 @@ import './media/u00n.png';
 import './media/342038688_IMG_3746.jpg';
 import './media/IMG_5022.jpg'; */
 
-// Builds the calendar components in the date-like inputs
-const departureDate = document.getElementById('datepicker-departure');
-const returnDate = document.getElementById('datepicker-return')
-const today = new Date();
-
 // Adds empty field validation to each input field
 const inputs = document.getElementsByTagName('input');
 for (const input of inputs) {
@@ -97,9 +92,21 @@ for (const input of inputs) {
     })
 }
 
+// Builds the calendar components in the date-like inputs
+Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+const departureDate = document.getElementById('datepicker-departure');
+const returnDate = document.getElementById('datepicker-return')
+const today = new Date();
+const maxDay = today.addDays(15);
+
 // Creates the calendar components
-setCalendarPicker(departureDate, today);
-setCalendarPicker(returnDate, today);
+setCalendarPicker(departureDate, today, maxDay);
+setCalendarPicker(returnDate, today, maxDay);
 
 // Add the countries list to the country field
 let countries = []

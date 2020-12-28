@@ -1,6 +1,4 @@
 {
     "emptyField": "This field cannot be empty.",
-    "departureDateBeforeToday": "Departure date must be after today.",
-    "returnDateBeforeToday": "Return date must be after today and after departure date.",
     "returnDateBeforeDepartureDate": "Return date must be after departure date."
 }

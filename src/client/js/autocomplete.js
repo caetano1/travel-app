@@ -18,7 +18,7 @@ function autocomplete (input, array) {
 
     // to remove the "active" state from an option
     const removeActive = (options) => {
-        /*a function to remove the "active" class from all autocomplete items:*/
+        // a function to remove the "active" class from all autocomplete items:
         for (const option of options) {
           option.classList.remove("autocomplete-active");
         }
@@ -27,11 +27,9 @@ function autocomplete (input, array) {
     // closes all autocomplete lists in the document
     const closeAllLists = (element) => {
         const items = document.getElementsByClassName("autocomplete-items");
-        /* console.log("closeAllLists", items, items.length); */
         if (items.length > 0) {
             for (const item of items) {
                 if (element != item && element != input) {
-                    /* console.log("closeAllLists - if true", item.parentNode); */
                     item.parentNode.removeChild(item);
                 }
             }
@@ -41,10 +39,8 @@ function autocomplete (input, array) {
     // add an event listener when someone writes on the input field
     input.addEventListener('input', (e) => {
         let value = input.value;
-        /* console.log("Input value", value); */
         // closes all the others autocompleted values
         closeAllLists();
-
         if (!value) return false
 
         currentFocus = -1;
@@ -55,7 +51,6 @@ function autocomplete (input, array) {
         optionsHolder.setAttribute('class', 'autocomplete-items');
         input.parentNode.appendChild(optionsHolder);
 
-        /* console.log(optionsHolder, "optionsHolder"); */
         // runs through the array
         for (const [country, alpha]  of array) {
             // checks if the input value matches the initial characters as the elements

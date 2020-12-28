@@ -11,18 +11,20 @@
     <div id="container">
       <div class ="holder headline">
         <h1>Travel App</h1>
-        <section><p>General description</p></section>
+        <section class="description">
+          <p>This app helps you check the weather forecast for your next destination, and presents some photos to give you a taste about where you are traveling to!</p>
+          <p>Unfortunately, the service only allow to forecast the weather up to 15 days from today, but give it a try, anyway (:</p>
+        </section>
       </div>
       <form id="app" class="holder app" autocomplete="off">
+        <h2>Destination</h2>
         <div class="holder location-fields">
           <div class="country autocomplete">
-            <!-- <label for="country">Select your country destination</label> -->
             <input type="text" id="input-countries" class="input-countries box" autocomplete="trick-chrome" name="Country" placeholder="Type your country destination here" required minlength="1">
             <div class="feedback-message-holder" id="feedback-message-holder-countries"></div>
           </div>
           <div class="spacing-vertical"></div>
           <div class ="city">
-            <!-- <label for="city">Type here the city destination</label> -->
             <input type="text" id="input-city" class="box" placeholder="Enter city name here" required minlength="1">
             <div class="feedback-message-holder" id="feedback-message-holder-city"></div>
           </div>
@@ -53,7 +55,7 @@
           </div>
       </div>
     </div>
-    <!-- <script>
+    <script>
       // Workbox Plugin - Check that service workers are supported
       if ('serviceWorker' in navigator) {
         // Use the window load event to keep the page load performant
@@ -61,6 +63,6 @@
           navigator.serviceWorker.register('/service-worker.js');
         });
       }
-    </script> -->
+    </script>
   </body>
 </html>

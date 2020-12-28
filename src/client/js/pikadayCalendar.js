@@ -1,7 +1,7 @@
 // Builds the calendar date picker
 import Pikaday from 'pikaday';
 
-function setCalendarPicker (inputField, minDate = null) {
+function setCalendarPicker (inputField, minDate = null, maxDate = null) {
     return new Pikaday ({
         field: inputField,
         format: 'MM/DD/YYYY',
@@ -19,10 +19,9 @@ function setCalendarPicker (inputField, minDate = null) {
             const year = parseInt(parts[2], 10);
             return new Date(year, month, day);
         },
-        minDate: minDate
+        minDate: minDate,
+        maxDate: maxDate
     });
 }
-
-/* try to implement this: https://pikaday.com/examples/date-range.html */
 
 export { setCalendarPicker }

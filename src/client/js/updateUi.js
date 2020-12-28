@@ -8,10 +8,14 @@ const updateUI = (data = {}) => {
     appForm.classList.add('left');
 
     // Removes the 'hidden' class from the results title
-    document.getElementById('results-title').classList.remove('hidden');
+    const resultsTitle = document.getElementById('results-title');
+    resultsTitle.classList.remove('hidden');
+    resultsTitle.innerText = `Results - ${data.cityName}, ${data.country}`;
 
     // fetches and creates the element holders
     const resultsNode = document.getElementById('results-holder');
+    resultsNode.innerHTML = "";
+
     const carrouselHolder = document.createElement('DIV');
     carrouselHolder.classList.add('results-carrousel-holder');
     carrouselHolder.id = 'results-carrousel-holder';
@@ -28,10 +32,6 @@ const updateUI = (data = {}) => {
 }
 
 const addImages = (arrayImages = [], parentNode) => {
-    console.log('add images');
-    console.log(arrayImages);
-    console.log(parentNode)
-
     let fragment = document.createDocumentFragment()
     let imagesHolder = document.createElement('DIV')
     imagesHolder.classList.add('images-holder')
@@ -79,10 +79,6 @@ const addImages = (arrayImages = [], parentNode) => {
 }
 
 const createWeatherCards = (arrayWeather = [], parentNode) => {
-    console.log('create cards');
-    console.log(arrayWeather);
-    console.log(parentNode)
-
     let fragment = document.createDocumentFragment()
     for (const dailyWeather of arrayWeather) {
         let weatherCard = document.createElement('DIV');
@@ -241,6 +237,5 @@ const createWeatherCards = (arrayWeather = [], parentNode) => {
     parentNode.appendChild(fragment)
     
 };
-
 
 export { updateUI }

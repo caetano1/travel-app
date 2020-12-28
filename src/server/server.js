@@ -52,16 +52,9 @@ async function fetchData (req, res) {
     const endpointGeo = 'http://api.geonames.org/searchJSON'
     const maxRowsGeo = 10;
     const usernameGeo = process.env.USERNAMEGEO;
-
     const urlGeo = `${endpointGeo}?q=${cityNameUtf8}&country=${country}&maxRows=${maxRowsGeo}&username=${usernameGeo}`;
-    console.log(urlGeo);
-
     let responseBodyGeocoordinates = await getExternalData.getData(urlGeo, use='Geocoordinates');
-    /* console.log(responseBody); */
-    
     const geoCoords = { 'lat': responseBodyGeocoordinates.geonames[0].lat, 'lon': responseBodyGeocoordinates.geonames[0].lng }
-
-    /* console.log(geoCoords); */
 
     //
     // fetches the city image
@@ -69,10 +62,7 @@ async function fetchData (req, res) {
     const endpointPixabay = 'https://pixabay.com/api/?';
     const imageType = 'photo';
     const pixabayKey = process.env.PIXABAYKEY;
-        /* const cityName = `&q=new york` */
     const urlImage = `${endpointPixabay}&q=${cityNameUtf8}&image_type=${imageType}&key=${pixabayKey}`;
-    console.log(urlImage);
-
     let responseBodyImages = await getExternalData.getData(urlImage, use='Pixabay API');
     const images = [
         {
@@ -89,9 +79,18 @@ async function fetchData (req, res) {
             "id": 3,
             "image": responseBodyImages.hits[2].webformatURL,
             "source": responseBodyImages.hits[2].pageURL
+        },
+        {
+            "id": 4,
+            "image": responseBodyImages.hits[3].webformatURL,
+            "source": responseBodyImages.hits[3].pageURL
+        },
+        {
+            "id": 5,
+            "image": responseBodyImages.hits[4].webformatURL,
+            "source": responseBodyImages.hits[4].pageURL
         }
     ];
-    /* console.log(images); */
     
     //
     // fetches the weather data
@@ -106,9 +105,6 @@ async function fetchData (req, res) {
         days = `&days=${daysUntilReturn}`;
     }
     const endpointWeather = `https://api.weatherbit.io/v2.0/forecast/daily?${days}`;
-        /* const lat = `&lat=51.50853`;
-        const lon = `&lon=-0.12574`;
-        const urlWeather = `${endpoint}?&lat=${lat}&lon=${lon}&key=${weatherbitKey}` */
     const weatherbitKey = process.env.WEATHERBITKEY;
     const urlWeather = `${endpointWeather}&lat=${geoCoords.lat}&lon=${geoCoords.lon}&key=${weatherbitKey}`;
     console.log(urlWeather);
