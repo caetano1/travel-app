@@ -1,4 +1,6 @@
 // Autocompletes the country input
+// used as reference: https://www.w3schools.com/howto/howto_js_autocomplete.asp
+
 function autocomplete (input, array) {
 
     let currentFocus;

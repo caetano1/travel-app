@@ -1,6 +1,7 @@
-
 // Declares the functions that will allow the carroussel
 // to work properly
+
+// used as reference: https://www.w3schools.com/howto/howto_js_slideshow.asp
 
 const changeImage = (pace = 0) => {
     let index
